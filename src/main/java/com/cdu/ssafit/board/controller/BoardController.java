@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
-
+	
 	private BoardService boardService;
 	public BoardController() {
 		boardService = BoardServiceImpl.getInstance(); 

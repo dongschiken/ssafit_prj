@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/member")
 public class MemberController extends HttpServlet {
@@ -41,7 +42,27 @@ public class MemberController extends HttpServlet {
 		case "join":
 			doJoin(req, resp);
 			break;
+		case "logoutForm":
+			doLogout(req, resp);
+			break;
+		case "myPage":
+			doMemberInfo(req, resp);
+			break;
 		}
+	}
+
+	private void doMemberInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		Member member = (Member)session.getAttribute("member");
+		req.getRequestDispatcher("WEB-INF/member/myPage.jsp").forward(req, resp);
+	}
+
+	private void doLogout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		HttpSession session = req.getSession();
+		session.invalidate();
+		String path = req.getContextPath();
+		resp.sendRedirect(path+"/main");
 	}
 
 	private void doJoin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -73,10 +94,21 @@ public class MemberController extends HttpServlet {
 		req.getRequestDispatcher("WEB-INF/member/join.jsp").forward(req, resp);
 	}
 
-	private void doLogin(HttpServletRequest req, HttpServletResponse resp) {
+	private void doLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		// 로그인은??
 		// 아이디 비밀번호 가져와서 둘다 일치할 경우 로그인
-		
+		String id = req.getParameter("id");
+		String password = req.getParameter("password");
+		Member member = null;
+		try {
+			member = memberService.selectMember(id, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		HttpSession session = req.getSession();
+		session.setAttribute("member", member);
+		String path = req.getContextPath();
+		resp.sendRedirect(path+"/main");
 	}
 
 	private void doLoginForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

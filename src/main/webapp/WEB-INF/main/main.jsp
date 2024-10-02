@@ -118,27 +118,14 @@ main {
 	height: 170px;
 	border-radius: 5px;
 }
+
 </style>
 <!-- <link rel="stylesheet" href="/WEB-INF/main/styles.css"> -->
 <script src="script.js" defer></script>
 </head>
 <body>
 	<!-- 헤더 영역 -->
-	<header>
-		<div class="logo">SSAFit</div>
-		<nav>
-			<ul>
-				<li><a
-					href="<%= request.getContextPath() %>/member?action=loginForm">로그인</a></li>
-				<li><a
-					href="<%= request.getContextPath() %>/member?action=joinForm">회원가입</a></li>
-				<li><a
-					href="<%= request.getContextPath() %>/member?action=myPageForm">마이페이지</a></li>
-				<li><a
-					href="<%= request.getContextPath() %>/member?action=logoutForm">로그아웃</a></li>
-			</ul>
-		</nav>
-	</header>
+	<%@ include file="../include/header.jsp"%>
 
 	<!-- 메인 섹션 -->
 	<main>
