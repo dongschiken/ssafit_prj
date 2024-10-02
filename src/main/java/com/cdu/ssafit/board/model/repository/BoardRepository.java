@@ -1,18 +1,22 @@
 package com.cdu.ssafit.board.model.repository;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import com.cdu.ssafit.board.domain.dto.Board;
+import com.cdu.ssafit.member.domain.dto.Member;
 
 public interface BoardRepository {
 	
-	void insertBoard(Board board);
+	public void insertBoard(Member member, Board board) throws SQLException;
 	
-	Map<Integer, Board> selectBoard();
+	public Map<Integer, Board> selectAll() throws SQLException;
 	
-	Board selectBoardById(int id);
+	public Board selectOne(int id) throws SQLException;
 
-	void updateBoard(int id);
+	public void updateBoard(Board board) throws SQLException;
 	
-	void deleteBoard(int id);
+	public void deleteBoard(int id) throws SQLException;
+	
+	public void updateViewCnt(int id) throws SQLException;
 }

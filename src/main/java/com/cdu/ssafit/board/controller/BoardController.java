@@ -2,6 +2,14 @@ package com.cdu.ssafit.board.controller;
 
 import java.io.IOException;
 
+import java.sql.SQLException;
+import java.util.Map;
+
+import com.cdu.ssafit.board.domain.dto.Board;
+import com.cdu.ssafit.board.model.service.BoardService;
+import com.cdu.ssafit.board.model.service.BoardServiceImpl;
+import com.cdu.ssafit.member.domain.dto.Member;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,8 +18,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
+	
+	private BoardService boardService;
+	public BoardController() {
+		boardService = BoardServiceImpl.getInstance(); 
+	}
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,6 +38,9 @@ public class BoardController extends HttpServlet {
 			case "detail":
 				doDetail(req, resp);
 				break;
+			case "list":
+				doList(req, resp);
+				break;
 			case "update":
 				doUpdate(req, resp);
 				break;
@@ -40,27 +54,62 @@ public class BoardController extends HttpServlet {
 		}
 	}
 
-	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) {
-		
+	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/board/WEB-INF/board/writeForm").forward(req, resp);
 	}
 
-	private void doWrite(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private void doWrite(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+		Member member = (Member) req.getSession().getAttribute("loginMember");
 		
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		String workOut = req.getParameter("workOut");
+		
+		Board board = new Board();
+		board.setTitle(title);
+		board.setContent(content);
+		board.setWorkOut(workOut);
+		boardService.write(member, board);
+		resp.sendRedirect(req.getContextPath() + "/main");
 	}
 
-	private void doDetail(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		
+	private void doDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		Board board = boardService.detail(id);
+		req.setAttribute("board", board);
+		req.getRequestDispatcher("/board/detail.jsp").forward(req, resp);
 	}
 	
-	private void doUpdate(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		
+	private void doList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		Map<Integer, Board> list = boardService.list();
+		req.setAttribute("list", list);
+		req.getRequestDispatcher("/main.jsp").forward(req, resp);
 	}
 	
-	private void doRemove(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+		Member member = (Member) req.getSession().getAttribute("loginMember");
 		
+		int id = Integer.parseInt(req.getParameter("id"));
+		Board board = boardService.detail(id);
+		
+		if (!member.getMemberName().equals(board.getWriter())) {
+			System.out.println("글을 수정할 권한이 없습니다.");
+		} else {
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+			String workOut = req.getParameter("workOut");
+			
+			board.setTitle(title);
+			board.setContent(content);
+			board.setWorkOut(workOut);
+			boardService.update(board);
+			resp.sendRedirect(req.getContextPath() + "/main");
+		}
+	}
+	
+	private void doRemove(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		boardService.delete(id);
+		resp.sendRedirect(req.getContextPath() + "/main");
 	}
 }	

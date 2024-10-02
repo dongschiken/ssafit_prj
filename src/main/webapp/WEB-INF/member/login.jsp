@@ -20,14 +20,15 @@
 	body {
 	    height: 100%;
 	}
-	
+
 	.main-container {
 	    display: flex;
 	    flex-direction: row;
 	    justify-content: center;
 	    align-items: center;
+     	align-content: center;
+     	margin-top: 400px;
 	    height: 100%;
-	    border: 1px solid gray;
 	    box-sizing: border-box;
 	}
 	
@@ -35,8 +36,13 @@
 	    width: 300px;
 	    border: 1px solid gray;
 	}
-	
-	body > div > table > tbody > tr > td > div {
+	#id {
+		width: 330px;
+	}
+	#password {
+		width: 330px;
+	}
+	body > form > div > table > tbody > tr > td > div {
 	    border: 1px solid gray;
 	    border-width: 0 0 1px;
 	    margin-bottom: 14px;
@@ -45,7 +51,7 @@
 	    padding-bottom: 10px;
 	}
 	
-	body > div > table > tbody > tr:nth-child(1) > th > h1 {
+	body > form > div > table > tbody > tr:nth-child(1) > th > h1 {
 	    color: gray;
 	    text-align: center;
 	    border: 1px solid gray;
@@ -54,11 +60,11 @@
 	    margin-bottom: 50px;
 	}
 	
-	body > div > table > tfoot > tr > td:nth-child(1) > button {
+	body > form > div > table > tfoot > tr > td:nth-child(1) > button {
 	    margin-top: 15px;
 	}
 	
-	body > div > table > tfoot > tr > td:nth-child(2) > button {
+	body > form > div > table > tfoot > tr > td:nth-child(2) > button {
 	    margin-top: 15px;
 	}
 	
@@ -70,12 +76,14 @@
 	    border-width: 0;
 	    padding-left: 10px;
 	}
-
+	
   </style>
+
 </head>
 <body>
 <form action="${ pageContext.request.contextPath }/member" method="POST">
 <input type="hidden" name="action" value="login">
+
 <div class="main-container">
     <table class=".input-table">
       <tbody>
@@ -111,25 +119,5 @@
     </table>
   </div>
 </form>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      let user = {
-        id : 'don0421',
-        password : "1234"
-      }
-
-      let btns = document.getElementsByClassName("btn btn-light");
-      
-      btns[0].addEventListener("click", () => {
-        let idInput = document.getElementById("id").value;
-        let passwordInput = document.getElementById("password").value;
-
-        if(idInput == user.id && passwordInput == user.password) {
-          location.href = `/main/main/main.html`
-        }
-      })
-    })
-
-  </script>
 </body>
 </html>
