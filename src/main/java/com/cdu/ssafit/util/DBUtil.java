@@ -1,8 +1,11 @@
 package com.cdu.ssafit.util;
 
-import java.sql.Connection;
+import java.sql.Connection;	
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.cj.xdevapi.Statement;
 
 public class DBUtil {
 	private static final String url = "jdbc:mysql://localhost:3306/ssafit_prj?serverTimezone=UTC";
@@ -26,5 +29,11 @@ public class DBUtil {
 	
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
+	}
+	
+	public void close(ResultSet rs, Statement stmt, Connection con) {
+		if (stmt != null) {
+			
+		}
 	}
 }
