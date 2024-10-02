@@ -9,6 +9,7 @@ public class Board {
 	int viewCnt;
 	String regDate;
 	
+	
 	public Board() {
 	}
 

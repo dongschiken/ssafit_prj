@@ -1,6 +1,7 @@
 package com.cdu.ssafit.board.controller;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import com.cdu.ssafit.board.domain.dto.Board;

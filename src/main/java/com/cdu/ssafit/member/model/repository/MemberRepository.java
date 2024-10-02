@@ -8,4 +8,5 @@ public interface MemberRepository {
 	
 	Member selectMember(String id, String password) throws SQLException;
 	
+	void insertMember(Member member) throws SQLException;
 }

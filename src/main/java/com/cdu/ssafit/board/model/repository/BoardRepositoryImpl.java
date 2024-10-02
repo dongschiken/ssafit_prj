@@ -34,7 +34,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				) {
 			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, member.getMember_name());
+			pstmt.setString(2, member.getMemberName());
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getWorkOut());
 			pstmt.setInt(5, board.getViewCnt());
