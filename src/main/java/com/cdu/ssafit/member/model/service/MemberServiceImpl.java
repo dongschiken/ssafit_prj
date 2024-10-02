@@ -22,12 +22,13 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public Member selectMember(String id, String password) throws SQLException {
-		
-		return null;
+		Member member = memberRepository.selectMember(id, password);
+		return member;
 	}
 
 	@Override
 	public void insertMember(Member member) throws SQLException {
+		
 		memberRepository.insertMember(member);
 	}
 	
