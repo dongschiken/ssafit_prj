@@ -168,7 +168,7 @@ main {
 						</tr>
 					</table>
 					<a href="workout.jsp" class="start-btn">운동가기</a>
-					<a href="workout.jsp" class="start-btn">찜</a>	
+					<a class="start-btn" href="<%= request.getContextPath() %>/main?action=save">찜</a>	
 				</div>
 				<div class="card">
 					<iframe src="https://www.youtube.com/embed/MQPclBNzo6w?si=eBgRargRFgoH0Q52" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -200,7 +200,7 @@ main {
 						</tr>
 					</table>
 					<a href="workout.jsp" class="start-btn">운동가기</a>
-					<a href="workout.jsp" class="start-btn">찜</a>	
+					<a href="workout.jsp" class="start-btn">찜</a>
 				</div>
 			</div>
 		</section>
