@@ -1,7 +1,7 @@
 package com.cdu.ssafit.board.model.service;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
 import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.board.model.repository.BoardRepository;
@@ -26,28 +26,25 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board detail(int id) {
+	public Board detail(int id) throws SQLException {
 		boardRepository.updateViewCnt(id);
 		Board board = boardRepository.selectOne(id);
 		return board;
 	}
 
 	@Override
-	public List<Board> list() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Integer, Board> list() throws SQLException {
+		return boardRepository.selectAll();
 	}
 
 	@Override
-	public void modify(int id) {
-		// TODO Auto-generated method stub
-		
+	public void update(Board board) throws SQLException {
+		boardRepository.updateBoard(board);
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int id) throws SQLException {
+		boardRepository.deleteBoard(id);
 	}
 
 }

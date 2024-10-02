@@ -1,6 +1,5 @@
 package com.cdu.ssafit.member.domain.dto;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Member {
@@ -17,6 +16,8 @@ public class Member {
 	private String jibunAddress;
 	private String detailAddress;
 	
+	public Member(int id, String password, String memberName, String email, LocalDateTime reg_date, int status) {
+	}
 	public Member(String id, String password, String memberName, String email, LocalDateTime regDate, int status,
 			String phoneNum, String postNum, String roadAddress, String jibunAddress, String detailAddress) {
 		super();
@@ -50,7 +51,7 @@ public class Member {
 		this.jibunAddress = jibunAddress;
 		this.detailAddress = detailAddress;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", password=" + password + ", memberName=" + memberName + ", email=" + email
@@ -58,7 +59,6 @@ public class Member {
 				+ ", roadAddress=" + roadAddress + ", jibunAddress=" + jibunAddress + ", detailAddress=" + detailAddress
 				+ "]";
 	}
-	
 	public String getId() {
 		return id;
 	}
