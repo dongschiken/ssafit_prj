@@ -10,13 +10,13 @@ public interface BoardRepository {
 	
 	public void insertBoard(Member member, Board board) throws SQLException;
 	
-	public Map<Integer, Board> selectAll();
+	public Map<Integer, Board> selectAll() throws SQLException;
 	
 	public Board selectOne(int id) throws SQLException;
 
-	public void updateBoard(int id);
+	public void updateBoard(Board board) throws SQLException;
 	
-	public void deleteBoard(int id);
+	public void deleteBoard(int id) throws SQLException;
 	
-	public void updateViewCnt(int id);
+	public void updateViewCnt(int id) throws SQLException;
 }

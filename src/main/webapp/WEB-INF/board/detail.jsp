@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <style>
         body {
             background-color: #f9f9f9;
@@ -75,6 +75,10 @@
             border-top: 1px solid #eaeaea;
             padding-top: 15px;
         }
+        
+        .comment-list {
+            margin-top: 30px;
+        }
 
         .comment-box textarea {
             width: 100%;
@@ -102,6 +106,11 @@
         .comment-content {
             margin-top: 5px;
         }
+
+        #submitComment {
+            background-color: rgb(176, 176, 250);
+            border-color: rgb(176, 176, 250);
+        }
     </style>
 </head>
 
@@ -112,20 +121,22 @@
             <div class="col-md-8">
                 <!-- Video Section -->
                 <div class="video-section">
-                    <iframe width="100%" height="450px" src="https://www.youtube.com/embed/50WCSpZtdmA?si=6NS965XyETmZ0vKu"
-                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    <iframe width="100%" height="450px"
+                        src="https://www.youtube.com/embed/50WCSpZtdmA?si=6NS965XyETmZ0vKu"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
                 <!-- Video Title and Meta Information -->
-                <div class="video-title">와~ 효과만점 운동 영상입니다!</div>
+                <div class="video-title">${board.title}</div>
                 <div class="video-meta">
-                    조회수 1234회 • 2024-08-30 • 작성자: a
+                    조회수 ${board.viewCnt} • ${board.regDate} • 작성자: ${board.writer}
                 </div>
 
                 <!-- Video Description -->
                 <div class="video-description">
-                    <p>이 운동 영상은 정말 효과가 좋아요! 강추!! 강추!!!!</p>
+                    <p>${board.content}</p>
                 </div>
 
                 <!-- Comments Section -->
@@ -158,36 +169,6 @@
             <!-- Related Videos Section -->
             <div class="col-md-4">
                 <h5>관련 영상</h5>
-
-                <!-- Related Video Item -->
-                <div class="related-videos">
-                    <div class="related-video-item">
-                        <img class="related-video-thumbnail" src="https://img.youtube.com/vi/example1/hqdefault.jpg"
-                            alt="Related video thumbnail">
-                        <div>
-                            <div class="related-video-title">다른 운동 영상 1</div>
-                            <div class="related-video-meta">조회수 800회 • 2024-08-20</div>
-                        </div>
-                    </div>
-
-                    <div class="related-video-item">
-                        <img class="related-video-thumbnail" src="https://img.youtube.com/vi/example2/hqdefault.jpg"
-                            alt="Related video thumbnail">
-                        <div>
-                            <div class="related-video-title">다른 운동 영상 2</div>
-                            <div class="related-video-meta">조회수 1,200회 • 2024-07-15</div>
-                        </div>
-                    </div>
-
-                    <div class="related-video-item">
-                        <img class="related-video-thumbnail" src="https://img.youtube.com/vi/example3/hqdefault.jpg"
-                            alt="Related video thumbnail">
-                        <div>
-                            <div class="related-video-title">다른 운동 영상 3</div>
-                            <div class="related-video-meta">조회수 950회 • 2024-06-10</div>
-                        </div>
-                    </div>
-                    <!-- More related videos -->
                 </div>
             </div>
         </div>

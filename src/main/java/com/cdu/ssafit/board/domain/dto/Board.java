@@ -9,6 +9,7 @@ public class Board {
 	int viewCnt;
 	String regDate;
 	
+	
 	public Board() {
 	}
 
@@ -37,9 +38,15 @@ public class Board {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public String getWriter() {
+		return writer;
+	}
 
-	
-	
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
 	public String getContent() {
 		return content;
 	}
