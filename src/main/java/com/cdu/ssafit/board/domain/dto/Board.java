@@ -10,6 +10,7 @@ public class Board {
 	int viewCnt;
 	Timestamp regDate;
 	
+	
 	public Board() {
 	}
 
