@@ -6,16 +6,16 @@ public class Member {
 	
 	private int id;
 	private String password;
-	private String member_name;
+	private String memberName;
 	private String email;
 	private LocalDateTime reg_date;
 	private int status;
 	
-	public Member(int id, String password, String member_name, String email, LocalDateTime reg_date, int status) {
+	public Member(int id, String password, String memberName, String email, LocalDateTime reg_date, int status) {
 		super();
 		this.id = id;
 		this.password = password;
-		this.member_name = member_name;
+		this.memberName = memberName;
 		this.email = email;
 		this.reg_date = reg_date;
 		this.status = status;
@@ -27,7 +27,7 @@ public class Member {
 	
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", password=" + password + ", member_name=" + member_name + ", email=" + email
+		return "MemberDTO [id=" + id + ", password=" + password + ", member_name=" + memberName + ", email=" + email
 				+ ", reg_date=" + reg_date + ", status=" + status + "]";
 	}
 	
@@ -43,11 +43,11 @@ public class Member {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getMember_name() {
-		return member_name;
+	public String getMemberName() {
+		return memberName;
 	}
 	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+		this.memberName = member_name;
 	}
 	public String getEmail() {
 		return email;

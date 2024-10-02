@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.board.model.service.BoardService;
 import com.cdu.ssafit.board.model.service.BoardServiceImpl;
+import com.cdu.ssafit.member.domain.dto.Member;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -53,7 +54,7 @@ public class BoardController extends HttpServlet {
 	}
 
 	private void doWrite(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
-		int memberId = (int) req.getSession().getAttribute("memberId");
+		Member member = (Member) req.getSession().getAttribute("loginMember");
 		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
@@ -63,7 +64,7 @@ public class BoardController extends HttpServlet {
 		board.setTitle(title);
 		board.setContent(content);
 		board.setWorkOut(workOut);
-		boardService.write(memberId, board);
+		boardService.write(member, board);
 		
 		resp.sendRedirect(req.getContextPath() + "/WEB-INF/board?action=list");
 	}

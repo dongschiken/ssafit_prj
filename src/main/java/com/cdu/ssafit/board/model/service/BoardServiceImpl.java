@@ -26,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board detail(int id) {
+	public Board detail(int id) throws SQLException {
 		boardRepository.updateViewCnt(id);
 		Board board = boardRepository.selectOne(id);
 		return board;

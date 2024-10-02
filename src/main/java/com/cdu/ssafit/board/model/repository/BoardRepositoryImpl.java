@@ -34,11 +34,11 @@ public class BoardRepositoryImpl implements BoardRepository {
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				) {
 			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, member.getMember_name());
+			pstmt.setString(2, member.getMemberName());
 			pstmt.setString(3, board.getContent());
 			pstmt.setString(4, board.getWorkOut());
 			pstmt.setInt(5, board.getViewCnt());
-			pstmt.setString(5, regDate);
+			pstmt.setString(6, regDate);
 			pstmt.executeUpdate();
 		}
 	}
@@ -55,11 +55,21 @@ public class BoardRepositoryImpl implements BoardRepository {
 			ResultSet rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				rs.getString("title");
-				rs.getString("content");
-				rs.getString("work_out");
-				rs.getInt("view_cnt");
+				String title = rs.getString("title");
+				String writer = rs.getString("writer");
+				String content = rs.getString("content");
+				String workOut = rs.getString("work_out");
+				int viewCnt = rs.getInt("view_cnt");
+				Board board = new Board();
+				board.setId(id);
+				board.setTitle(title);
+				board.setWriter(writer);
+				board.setContent(content);
+				board.setWorkOut(workOut);
+				board.setViewCnt(viewCnt);
+				return board;
 			}
+			return null;
 		}
 	}
 

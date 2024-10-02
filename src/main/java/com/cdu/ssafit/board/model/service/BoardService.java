@@ -10,7 +10,7 @@ public interface BoardService {
 	
 	void write(Member member, Board board) throws SQLException;
 	
-	Board detail(int id);
+	Board detail(int id) throws SQLException;
 	
 	List<Board> list();
 	
