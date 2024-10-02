@@ -1,21 +1,21 @@
 package com.cdu.ssafit.board.domain.dto;
 
-import java.security.Timestamp;
-
 public class Board {
 	int id;	
 	String title;
+	String writer;
 	String content;
 	String workOut;
 	int viewCnt;
-	Timestamp regDate;
+	String regDate;
 	
 	public Board() {
 	}
 
-	public Board(int id, String title, String content, String workOut, int viewCnt, Timestamp regDate) {
+	public Board(int id, String title, String writer, String content, String workOut, int viewCnt, String regDate) {
 		this.id = id;
 		this.title = title;
+		this.writer = writer;
 		this.content = content;
 		this.workOut = workOut;
 		this.viewCnt = viewCnt;
@@ -38,6 +38,8 @@ public class Board {
 		this.title = title;
 	}
 
+	
+	
 	public String getContent() {
 		return content;
 	}
@@ -62,11 +64,11 @@ public class Board {
 		this.viewCnt = viewCnt;
 	}
 
-	public Timestamp getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Timestamp regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 
