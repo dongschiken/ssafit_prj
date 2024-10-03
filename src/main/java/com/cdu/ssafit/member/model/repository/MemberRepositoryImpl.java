@@ -68,7 +68,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 		System.out.println(member);
 		String sql = "INSERT INTO member(id, password, member_name, email, reg_date, post_num, jibun_addr, road_addr, detail_addr, phone_num)"
 				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-
+		
 		String parsedLocalDateTimeNow = member.getRegDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		try (Connection conn = dbUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
@@ -87,7 +87,6 @@ public class MemberRepositoryImpl implements MemberRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
