@@ -146,27 +146,34 @@ main {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     // 찜 상태 변경 함수
-    function doSave(button) {
-        var boardId = $(button).data('id');  // 운동 id 추출
-        // AJAX 요청 보내기
-        $.ajax({
-            url: '<%= request.getContextPath() %>/save?action=save',  // 찜 상태를 변경하는 엔드포인트
-            type: 'POST',
-            data: { id: boardId },  // 서버로 전송할 데이터 (운동 id)
-            success: function(response) {
-                if (response.saved) {  // 응답에서 저장 여부 확인
-                    alert('찜 목록 추가됨');
-                    $(button).text('찜 취소');  // 버튼 텍스트 변경
-                } else {
-                    alert('찜 목록에서 삭제됨');
-                    $(button).text('찜');  // 버튼 텍스트 변경
+    	function doSave(element) {
+            var boardId = element.value;  // 운동 id 추출
+            var jsonData = JSON.stringify({'boardId' : boardId});
+            
+            // AJAX 요청 보내기
+            $.ajax({
+                url: '<%= request.getContextPath() %>/save?action=save',  // 찜 상태를 변경하는 엔드포인트
+                type: 'POST',
+                data: jsonData,  // 서버로 전송할 데이터 (운동 id)
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(response) {
+                    if (response.saved) {  // 응답에서 저장 여부 확인
+                    	alert("찜 목록에 추가됨");
+                        $(button).text('찜 취소');  // 버튼 텍스트 변경
+                    	}
+                    else {
+                        alert('찜 목록에서 삭제됨');
+                        $(button).text('찜');  // 버튼 텍스트 변경
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('찜 상태 변경 중 오류가 발생했습니다.');
                 }
-            },
-            error: function(xhr, status, error) {
-                alert('찜 상태 변경 중 오류가 발생했습니다.');
-            }
-        });
-    }
+            });
+    	}
+    	
+    
 </script>
 </head>
 <body>
@@ -249,7 +256,7 @@ main {
 						</tr>
 					</table>
 					<button class="start-btn workout-btn">운동가기</button>
-					<button class="start-btn save-btn" data-id="${board.id}"
+					<button class="start-btn save-btn" value=3
 						onclick="doSave(this)">찜</button>
 
 				</div>
