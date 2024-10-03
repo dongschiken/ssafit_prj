@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.cdu.ssafit.member.domain.dto.Member;
+import com.cdu.ssafit.member.domain.dto.Review;
 import com.cdu.ssafit.util.DBUtil;
-import com.mysql.cj.protocol.Resultset;
 
 public class MemberRepositoryImpl implements MemberRepository {
 
@@ -21,7 +24,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public static MemberRepository getInstance() {
 		return instance;
 	}
-
+	
 	@Override
 	public Member selectMember(String id, String password) throws SQLException {
 		DBUtil dbUtil = DBUtil.getInstance();
@@ -35,6 +38,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
+				int seq = rs.getInt("seq");
 				id = rs.getString("id");
 				password = rs.getString("password");
 				String memberName = rs.getString("member_name");
@@ -48,8 +52,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 				String phoneNum = rs.getString("phone_num");
 				LocalDateTime regDate = LocalDateTime.parse(reg_date,
 						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-				member = new Member(id, password, memberName, email, regDate, status, phoneNum, postNum, roadAddress,
-						jibunAddress, detailAddress);
+				member = new Member(seq, id, password, memberName, email, regDate, status, phoneNum, postNum, roadAddress, jibunAddress, detailAddress);
 			}
 		} catch (Exception e) {
 			throw e;
@@ -79,13 +82,71 @@ public class MemberRepositoryImpl implements MemberRepository {
 			pstmt.setString(8, member.getRoadAddress());
 			pstmt.setString(9, member.getDetailAddress());
 			pstmt.setString(10, member.getPhoneNum());
-
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public boolean selectMemberById(String id) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = "SELECT id FROM member WHERE id LIKE ?";
+		ResultSet rs = null;
+		String memberId = null;
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			){			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberId = rs.getString("id");
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			rs.close();
+		}
+		// id가 없으면 중복 X -> true
+		return memberId == null;
+	}
+
+	@Override
+	public Map<Integer, Review> selectReviewList(String option, Member member) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = " SELECT review.id, review.content, board.title, board.id, review.member_seq, review.reg_date\r\n "
+				+ " FROM review, board WHERE review.member_seq = ? AND board.id = review.board_id ORDER BY reg_date "+option;
+		
+		Map<Integer, Review> map = null;
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+				) {
+			pstmt.setInt(1, member.getSeq());
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if(rs.next()) {
+					map = new HashMap<Integer, Review>();
+					do {
+						int reviewId = rs.getInt(1);
+						String content = rs.getString(2);
+						String title = rs.getString(3);
+						int boardId = rs.getInt(4);
+						int memberSeq = rs.getInt(5);
+						String regDate = rs.getString(6);
+						Review review = new Review(reviewId, title, content, regDate, boardId, memberSeq);
+						map.put(reviewId, review);
+					} while (rs.next());
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return map;
 	}
 
 }
