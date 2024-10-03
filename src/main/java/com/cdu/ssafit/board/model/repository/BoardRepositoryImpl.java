@@ -53,7 +53,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 			if (rs.next()) {
 				String title = rs.getString("title");
-				String writer = rs.getString("writer");
+				int writer = rs.getInt("writer");
 				String content = rs.getString("content");
 				String workOut = rs.getString("work_out");
 				int viewCnt = rs.getInt("view_cnt");
@@ -82,7 +82,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
-				String writer = rs.getString("writer");
+				int writer = rs.getInt("member_seq");
 				String content = rs.getString("content");
 				String workOut = rs.getString("work_out");
 				int viewCnt = rs.getInt("view_cnt");
