@@ -143,7 +143,8 @@ main {
 </style>
 <!-- <link rel="stylesheet" href="/WEB-INF/main/styles.css"> -->
 <!-- 제이쿼리 라이브러리 포함 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     // 찜 상태 변경 함수
     	function doSave(element) {
@@ -152,28 +153,26 @@ main {
             
             // AJAX 요청 보내기
             $.ajax({
-                url: '<%= request.getContextPath() %>/save?action=save',  // 찜 상태를 변경하는 엔드포인트
-                type: 'POST',
-                data: jsonData,  // 서버로 전송할 데이터 (운동 id)
-                dataType: 'json',
-                contentType: 'application/json',
-                success: function(response) {
-                    if (response.saved) {  // 응답에서 저장 여부 확인
-                    	alert("찜 목록에 추가됨");
-                        $(button).text('찜 취소');  // 버튼 텍스트 변경
-                    	}
-                    else {
-                        alert('찜 목록에서 삭제됨');
-                        $(button).text('찜');  // 버튼 텍스트 변경
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('찜 상태 변경 중 오류가 발생했습니다.');
-                }
-            });
-    	}
-    	
-    
+                url: '<%=request.getContextPath()%>
+	/save?action=save', // 찜 상태를 변경하는 엔드포인트
+			type : 'POST',
+			data : jsonData, // 서버로 전송할 데이터 (운동 id)
+			dataType : 'json',
+			contentType : 'application/json',
+			success : function(response) {
+				if (response.saved) { // 응답에서 저장 여부 확인
+					alert("찜 목록에 추가됨");
+					$(button).text('찜 취소'); // 버튼 텍스트 변경
+				} else {
+					alert('찜 목록에서 삭제됨');
+					$(button).text('찜'); // 버튼 텍스트 변경
+				}
+			},
+			error : function(xhr, status, error) {
+				alert('찜 상태 변경 중 오류가 발생했습니다.');
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -197,71 +196,28 @@ main {
 			<div class="card-container">
 				<%-- 여기서는 DB에서 가져온 운동 영상 데이터를 JSP로 출력 --%>
 				<!-- 반복적으로 카드 추가 -->
-				<div class="card">
-					<iframe
-						src="https://www.youtube.com/embed/ilRZoulqWnM?si=cPLwtVbmTU2pYO2-"
-						title="YouTube video player" frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-					<h3>운동 이름1</h3>
-					<table>
-						<tr>
-							<td><strong>운동 종목:</strong></td>
-							<td>요가</td>
-						</tr>
-						<tr>
-							<td><strong>운동 부위:</strong></td>
-							<td>전신</td>
-						</tr>
-					</table>
-					<a class="start-btn"
-						href="<%=request.getContextPath()%>/board?action=detail">운동가기</a>
-					<a class="start-btn"
-						href="<%=request.getContextPath()%>/save?action=save">찜</a>
-				</div>
-				<div class="card">
-					<iframe
-						src="https://www.youtube.com/embed/MQPclBNzo6w?si=eBgRargRFgoH0Q52"
-						title="YouTube video player" frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-					<h3>운동 이름2</h3>
-					<table>
-						<tr>
-							<td><strong>운동 종목:</strong></td>
-							<td>요가</td>
-						</tr>
-						<tr>
-							<td><strong>운동 부위:</strong></td>
-							<td>전신</td>
-						</tr>
-					</table>
-					<a href="workout.jsp" class="start-btn">운동가기</a> <a
-						href="workout.jsp" class="start-btn">찜</a>
-				</div>
-				<div class="card">
-					<iframe
-						src="https://www.youtube.com/embed/ilRZoulqWnM?si=cPLwtVbmTU2pYO2-"
-						title="YouTube video player" frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-					<h3>운동 이름3</h3>
-					<table>
-						<tr>
-							<td><strong>운동 종목:</strong></td>
-							<td>요가</td>
-						</tr>
-						<tr>
-							<td><strong>운동 부위:</strong></td>
-							<td>전신</td>
-						</tr>
-					</table>
-					<button class="start-btn workout-btn">운동가기</button>
-					<button class="start-btn save-btn" value=3
-						onclick="doSave(this)">찜</button>
-
-				</div>
-
+				<c:choose>
+						<c:when test="${ not empty list }">
+						<c:foreach items="${ list }" var="entry" >
+						<div class="card">
+							${entry.value.videoUrl}
+							<h3>${ entry.value.title }</h3>
+							<table>
+								<tr>
+									<td><strong>${ entry.value.workOut }:</strong></td>
+									<td>${ entry.value.workOut }</td>
+								</tr>
+								<tr>
+									<td><strong>${ entry.value.workOut }:</strong></td>
+									<td>전신</td>
+								</tr>
+							</table>
+							<button class="start-btn workout-btn">운동가기</button>
+							<button class="start-btn save-btn" value=3 onclick="doSave(this)">찜</button>
+						</div>
+						</c:foreach>
+					</c:when>
+				</c:choose>
 			</div>
 		</section>
 	</main>
