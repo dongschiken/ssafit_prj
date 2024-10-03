@@ -42,11 +42,7 @@ header nav ul li a:hover {
 }
 </style>
 	<header>
-<<<<<<< HEAD
 		<div class="logo"><a href="<%= request.getContextPath()%>/main?action=main">SSAFit</a></div>
-=======
-		<div class="logo">SSAFIT</div>
->>>>>>> ba65849a348929f54e7018f9ca712476153c6fc4
 		<nav>
 			<ul>
 			<c:choose>

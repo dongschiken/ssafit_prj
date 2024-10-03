@@ -83,9 +83,7 @@
 		<script>
 
             function deleteReview(element) {
-                alert("삭제버튼");
-                alert(element);
-                alert(element.value);
+				location.href = `<%=request.getContextPath()%>/member?action=reviewDelete&value=\${element.value}`
             }
             
 			document.addEventListener('DOMContentLoaded', function() {
