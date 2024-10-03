@@ -31,7 +31,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 		String sql = "insert into board(title, writer, content, workout) values(?, ?, ?, ?, ?)";
 
 		String regDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
-
+		
 		try (Connection con = dbUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, member.getMemberName());
