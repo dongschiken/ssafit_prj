@@ -8,9 +8,23 @@ public class Board {
 	String workOut;
 	int viewCnt;
 	String regDate;
+	String videoUrl;
 	
 	
 	public Board() {
+	}
+	
+	public Board(int id, String title, String writer, String content, String workOut, int viewCnt, String regDate,
+			String videoUrl) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.writer = writer;
+		this.content = content;
+		this.workOut = workOut;
+		this.viewCnt = viewCnt;
+		this.regDate = regDate;
+		this.videoUrl = videoUrl;
 	}
 
 	public Board(int id, String title, String writer, String content, String workOut, int viewCnt, String regDate) {
@@ -78,10 +92,19 @@ public class Board {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
 
 	@Override
 	public String toString() {
-		return "Board [id=" + id + ", title=" + title + ", content=" + content + ", workOut=" + workOut + ", viewCnt="
-				+ viewCnt + ", regDate=" + regDate + "]";
+		return "Board [id=" + id + ", title=" + title + ", writer=" + writer + ", content=" + content + ", workOut="
+				+ workOut + ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", videoUrl=" + videoUrl + "]";
 	}
+
 }
