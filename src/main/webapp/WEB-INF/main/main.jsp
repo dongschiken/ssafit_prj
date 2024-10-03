@@ -192,7 +192,8 @@ main {
 
 		<!-- 추천 운동 영상 카드 -->
 		<section class="video-section">
-			<h2>추천 운동 영상</h2>
+			
+			<h2></h2>
 			<div class="card-container">
 				<%-- 여기서는 DB에서 가져온 운동 영상 데이터를 JSP로 출력 --%>
 				<!-- 반복적으로 카드 추가 -->

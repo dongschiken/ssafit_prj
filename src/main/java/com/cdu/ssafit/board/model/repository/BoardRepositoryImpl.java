@@ -86,12 +86,14 @@ public class BoardRepositoryImpl implements BoardRepository {
 				String content = rs.getString("content");
 				String workOut = rs.getString("work_out");
 				int viewCnt = rs.getInt("view_cnt");
+				String videoUrl = rs.getString("video_url");
 				Board board = new Board();
 				board.setTitle(title);
 				board.setWriter(writer);
 				board.setContent(content);
 				board.setWorkOut(workOut);
 				board.setViewCnt(viewCnt);
+				board.setVideoUrl(videoUrl);
 				map.put(id, board);
 			}
 			return map;
