@@ -1,5 +1,6 @@
 package com.cdu.ssafit.save.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.cdu.ssafit.member.model.repository.MemberRepositoryImpl;
@@ -20,22 +21,23 @@ public class SaveServiceImpl implements SaveService {
     }
     
     @Override
-    public boolean isSaved(String memberId, int boardId) {
-        return saveRepository.isSaved(memberId, boardId);
+    public boolean isSaved(int seq, int boardId) throws SQLException {
+        return saveRepository.isSaved(seq, boardId);
     }
 
     @Override
-    public void insertSave(Save save) {
+    public void insertSave(Save save) throws SQLException {
         saveRepository.insertSave(save);
     }
 
     @Override
-    public void deleteSave(String memberId, int boardId) {
-        saveRepository.deleteSave(memberId, boardId);
+    public void deleteSave(int seq, int boardId) throws SQLException {
+        saveRepository.deleteSave(seq, boardId);
     }
 
     @Override
-    public List<Save> selectSaves(String memberId) {
-        return saveRepository.selectSaves(memberId);
+    public List<Save> selectSaves(int seq) throws SQLException {
+        return saveRepository.selectSaves(seq);
     }
+
 }

@@ -23,62 +23,62 @@ public class SaveRepositoryImpl implements SaveRepository {
 	}
 	
 	@Override
-    public void insertSave(Save save) {
-        String sql = "INSERT INTO saves (member_id, board_id) VALUES (?, ?)";
+    public void insertSave(Save save) throws SQLException {
+        String sql = "INSERT INTO save (member_id, board_id) VALUES (?, ?)";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, save.getMemberId());
+            pstmt.setInt(1, save.getMemberSeq());
             pstmt.setInt(2, save.getBoardId());
             pstmt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void deleteSave(String memberId, int boardId) {
+    public void deleteSave(int memberSeq, int boardId) throws SQLException {
         String sql = "DELETE FROM saves WHERE member_id = ? AND board_id = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, memberId);
+            pstmt.setInt(1, memberSeq);
             pstmt.setInt(2, boardId);
             pstmt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public List<Save> selectSaves(String memberId) {
+    public List<Save> selectSaves(int memberSeq) throws SQLException {
         List<Save> saves = new ArrayList<>();
         String sql = "SELECT * FROM saves WHERE member_id = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, memberId);
+            pstmt.setInt(1, memberSeq);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Save save = new Save(rs.getInt("id"), memberId, rs.getInt("board_id"));
+                Save save = new Save(rs.getInt("id"), memberSeq, rs.getInt("board_id"));
                 saves.add(save);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return saves;
     }
 
     @Override
-    public boolean isSaved(String memberId, int boardId) {
+    public boolean isSaved(int memberSeq, int boardId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM saves WHERE member_id = ? AND board_id = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, memberId);
+            pstmt.setInt(1, memberSeq);
             pstmt.setInt(2, boardId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
             	// 결과가 존재하면 true를 반환
                 return rs.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

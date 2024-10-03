@@ -2,13 +2,13 @@ package com.cdu.ssafit.save.domain.dto;
 
 public class Save {
 	private int id;
-	private String memberId;
+	private int memberSeq;
 	private int boardId;
 	public Save() { }
-	public Save(int id, String memberId, int boardId) {
+	public Save(int id, int memberSeq, int boardId) {
 		super();
 		this.id = id;
-		this.memberId = memberId;
+		this.memberSeq = memberSeq;
 		this.boardId = boardId;
 	}
 	public int getBoardId() {
@@ -23,15 +23,15 @@ public class Save {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getMemberId() {
-		return memberId;
+	public int getMemberSeq() {
+		return memberSeq;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberSeq(int memberSeq) {
+		this.memberSeq = memberSeq;
 	}
 	@Override
 	public String toString() {
-		return "Save [id=" + id + ", memberId=" + memberId + ", boardId=" + boardId + "]";
+		return "Save [id=" + id + ", memberSeq=" + memberSeq + ", boardId=" + boardId + "]";
 	}
 	 
 	
