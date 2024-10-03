@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.member.domain.dto.Review;
 import com.cdu.ssafit.member.model.service.MemberService;
@@ -103,9 +104,8 @@ public class MemberController extends HttpServlet {
 		// oldest, newest 받아서 최신순 과거순 처리
 		String option = req.getParameter("option");
 		Member member = (Member) req.getSession().getAttribute("member");
-		Map<Integer, Review> map = null;
-		List<Review> boardList = null;
-		map = memberService.selectReviewList(option, member);
+		Map<Integer, Board> boardList = null;
+		boardList = memberService.selectBoardList(option, member);
 		req.setAttribute("boardList", boardList);
 		req.setAttribute("option", option);
 		req.getRequestDispatcher("WEB-INF/member/myBoard.jsp").forward(req, resp);

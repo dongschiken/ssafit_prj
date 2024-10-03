@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.member.domain.dto.Review;
 import com.cdu.ssafit.util.DBUtil;
@@ -118,7 +118,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 		DBUtil dbUtil = DBUtil.getInstance();
 		String sql = " SELECT review.id, review.content, board.title, board.id, review.member_seq, review.reg_date\r\n "
 				+ " FROM review, board WHERE review.member_seq = ? AND board.id = review.board_id ORDER BY reg_date "+option;
-		
+		System.out.println(sql);
 		Map<Integer, Review> map = null;
 		try (
 			Connection conn = dbUtil.getConnection();
@@ -127,7 +127,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 			pstmt.setInt(1, member.getSeq());
 			try (ResultSet rs = pstmt.executeQuery();) {
 				if(rs.next()) {
-					map = new HashMap<Integer, Review>();
+					map = new LinkedHashMap<Integer, Review>();
 					do {
 						int reviewId = rs.getInt(1);
 						String content = rs.getString(2);
@@ -161,6 +161,37 @@ public class MemberRepositoryImpl implements MemberRepository {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public Map<Integer, Board> selectBoardList(String option, Member member) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = "SELECT * FROM board WHERE member_seq = ? ORDER BY reg_date "+option;
+		Map<Integer, Board> map = null;
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			){
+			pstmt.setInt(1, member.getSeq());
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				map = new LinkedHashMap<>();
+				do {
+					Board board = new Board();
+					board.setId(rs.getInt("id"));
+					board.setTitle(rs.getString("title"));
+					board.setContent(rs.getString("content"));
+					board.setWorkOut(rs.getString("work_out"));
+					board.setViewCnt(rs.getInt("view_cnt"));
+					board.setRegDate(rs.getString("reg_date"));
+					map.put(board.getId(), board);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return map;
 	}
 	
 }
