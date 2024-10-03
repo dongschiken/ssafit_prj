@@ -198,7 +198,7 @@ main {
 				<!-- 반복적으로 카드 추가 -->
 				<c:choose>
 						<c:when test="${ not empty list }">
-						<c:foreach items="${ list }" var="entry" >
+						<c:forEach items="${ list }" var="entry" >
 						<div class="card">
 							${entry.value.videoUrl}
 							<h3>${ entry.value.title }</h3>
@@ -215,7 +215,7 @@ main {
 							<button class="start-btn workout-btn">운동가기</button>
 							<button class="start-btn save-btn" value=3 onclick="doSave(this)">찜</button>
 						</div>
-						</c:foreach>
+						</c:forEach>
 					</c:when>
 				</c:choose>
 			</div>
