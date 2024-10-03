@@ -2,19 +2,17 @@ package com.cdu.ssafit.save.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+
+import javax.swing.plaf.synth.SynthScrollBarUI;
 
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.save.domain.dto.Save;
 import com.cdu.ssafit.save.model.service.SaveService;
 import com.cdu.ssafit.save.model.service.SaveServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -38,7 +36,11 @@ public class SaveController extends HttpServlet {
 		System.out.println(action);
 		switch (action) {
 		case "save":
-			doSave(req, resp);
+			try {
+				doSave(req, resp);
+			} catch (ServletException | IOException | SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		case "saveList":
 			doSaveList(req, resp);
@@ -52,7 +54,8 @@ public class SaveController extends HttpServlet {
 	 * @param resp
 	 */
 	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		// 찜 리스트 보러 가는 기능
+		
 		
 	}
 	/**
@@ -61,12 +64,15 @@ public class SaveController extends HttpServlet {
 	 * @param resp
 	 * @throws ServletException
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
-	private void doSave(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("doSave메소드 실행");
+	private void doSave(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		// 로그인 상태 확인
 		HttpSession session = req.getSession();
-		Member member = (Member)session.getAttribute("member");
+//		Member member = (Member)session.getAttribute("member");
+		Member member = new Member("1", "1234", "ddfd", "dfdfd@", null, "1234", "12312", "123123", "12312", "1212");
 		if (member == null) {
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/member/loginForm.jsp");
 			rd.forward(req, resp);			
@@ -75,27 +81,29 @@ public class SaveController extends HttpServlet {
 		// 현재 요청으로는 운동 id가 넘어왔고, 방금 member 변수에 회원 정보가 넘어온 상황
 		// 각각을 꺼낸다.
 		String line = "";
-		int boardId = Integer.parseInt(req.getParameter("id"));
+//		int boardId = Integer.parseInt(req.getParameter("id"));
 		StringBuilder sb = new StringBuilder();
+//		System.out.println(req.getReader());
+		req.getReader();
 		BufferedReader br = req.getReader();
 		while ((line = br.readLine()) != null) {
 			sb.append(line);
 		}
 		
-		Json
-		
-		String memberId = member.getId();
-		
+		Gson gson = new Gson();
+		JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
+		int memberId = member.getSeq();
+		int boardId = jsonObject.get("boardId").getAsInt();
 		// 찜 여부를 확인하러 감.
-		boolean isSaved = saveService.isSaved(memberId, boardId);
+		boolean isSaved = saveService.isSaved(member.getSeq(), boardId);
 		
 		if (isSaved) { // 만약 찜한 상태라면, 해당 찜을 삭제하러 감.
-            saveService.deleteSave(memberId, boardId);
+            saveService.deleteSave(member.getSeq(), boardId);
         } else {	// 찜하지 않았다면 찜 객체를 생성하고 저장하러 감.
-            Save save = new Save(0, memberId, boardId);  // id는 자동 생성되므로 0으로 설정
+            Save save = new Save(0, member.getSeq(), boardId);  // id는 자동 생성되므로 0으로 설정
             saveService.insertSave(save);
         }
-		
+		System.out.println(isSaved);
         resp.setContentType("application/json");
         resp.getWriter().write("{\"saved\":" + !isSaved + "}");
 	}
