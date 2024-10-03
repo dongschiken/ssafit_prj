@@ -251,6 +251,7 @@ main {
 					<button class="start-btn workout-btn">운동가기</button>
 					<button class="start-btn save-btn" data-id="${board.id}"
 						onclick="doSave(this)">찜</button>
+
 				</div>
 
 			</div>

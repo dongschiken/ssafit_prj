@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Member {
 	
+	private int seq;
 	private String id;
 	private String password;
 	private String memberName;
@@ -16,11 +17,26 @@ public class Member {
 	private String jibunAddress;
 	private String detailAddress;
 	
-	public Member(int id, String password, String memberName, String email, LocalDateTime reg_date, int status) {
-	}
-	public Member(String id, String password, String memberName, String email, LocalDateTime regDate, int status,
-			String phoneNum, String postNum, String roadAddress, String jibunAddress, String detailAddress) {
+	public Member(String id, String password, String memberName, String email, LocalDateTime regDate, String phoneNum,
+			String postNum, String roadAddress, String jibunAddress, String detailAddress) {
 		super();
+		this.id = id;
+		this.password = password;
+		this.memberName = memberName;
+		this.email = email;
+		this.regDate = regDate;
+		this.phoneNum = phoneNum;
+		this.postNum = postNum;
+		this.roadAddress = roadAddress;
+		this.jibunAddress = jibunAddress;
+		this.detailAddress = detailAddress;
+	}
+
+	public Member(int seq, String id, String password, String memberName, String email, LocalDateTime regDate,
+			int status, String phoneNum, String postNum, String roadAddress, String jibunAddress,
+			String detailAddress) {
+		super();
+		this.seq = seq;
 		this.id = id;
 		this.password = password;
 		this.memberName = memberName;
@@ -34,12 +50,10 @@ public class Member {
 		this.detailAddress = detailAddress;
 	}
 	
-	public Member() {
-		super();
-	}
-	
-	public Member(String id, String password, String memberName, String email, LocalDateTime regDate,
+	public Member(int seq, String id, String password, String memberName, String email, LocalDateTime regDate,
 			String phoneNum, String postNum, String roadAddress, String jibunAddress, String detailAddress) {
+		super();
+		this.seq = seq;
 		this.id = id;
 		this.password = password;
 		this.memberName = memberName;
@@ -52,12 +66,23 @@ public class Member {
 		this.detailAddress = detailAddress;
 	}
 	
+	public Member() {
+		super();
+	}
+	
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", password=" + password + ", memberName=" + memberName + ", email=" + email
-				+ ", regDate=" + regDate + ", status=" + status + ", phoneNum=" + phoneNum + ", postNum=" + postNum
-				+ ", roadAddress=" + roadAddress + ", jibunAddress=" + jibunAddress + ", detailAddress=" + detailAddress
-				+ "]";
+		return "Member [seq=" + seq + ", id=" + id + ", password=" + password + ", memberName=" + memberName
+				+ ", email=" + email + ", regDate=" + regDate + ", status=" + status + ", phoneNum=" + phoneNum
+				+ ", postNum=" + postNum + ", roadAddress=" + roadAddress + ", jibunAddress=" + jibunAddress
+				+ ", detailAddress=" + detailAddress + "]";
+	}
+	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getId() {
 		return id;

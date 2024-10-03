@@ -20,14 +20,14 @@
 	body {
 	    height: 100%;
 	}
-
+	/* height를 300px로 했을때 화면이 깨지는지 확인 */
 	.main-container {
 	    display: flex;
 	    flex-direction: row;
 	    justify-content: center;
 	    align-items: center;
      	align-content: center;
-     	margin-top: 400px;
+     	margin-top: 300px;
 	    height: 100%;
 	    box-sizing: border-box;
 	}
@@ -36,12 +36,15 @@
 	    width: 300px;
 	    border: 1px solid gray;
 	}
+	
 	#id {
 		width: 330px;
 	}
+	
 	#password {
 		width: 330px;
 	}
+	
 	body > form > div > table > tbody > tr > td > div {
 	    border: 1px solid gray;
 	    border-width: 0 0 1px;
@@ -51,7 +54,7 @@
 	    padding-bottom: 10px;
 	}
 	
-	body > form > div > table > tbody > tr:nth-child(1) > th > h1 {
+	body > form > div > table > tbody > tr:nth-child(2) > th > h1 {
 	    color: gray;
 	    text-align: center;
 	    border: 1px solid gray;
@@ -76,7 +79,27 @@
 	    border-width: 0;
 	    padding-left: 10px;
 	}
+	.footer-section {
+		margin-top: 15px;
+		display: flex;
+		justify-content: center;
+	}
+	.footer-find-section {
+		display: flex;
+		justify-content: space-between;
+		max-width: 360px;
+		width: 360px;
+	}
+	.footer-section > .footer-find-section > div > a {
+		text-decoration: none;
+		color: grey;
+	}
 	
+	body > form > div.main-container > table > tbody > tr:nth-child(1) > th > h1 {
+		margin-bottom: 40px;
+		text-align: center;
+		font-weight: bold;
+	}
   </style>
 
 </head>
@@ -87,6 +110,9 @@
 <div class="main-container">
     <table class=".input-table">
       <tbody>
+		<tr>
+		   <th colspan="2"><h1><a style="text-decoration: none; color: rgb(201, 201, 253);" href="${pageContext.request.contextPath}/main">SSAFIT</a></h1></th>
+		</tr>
         <tr>
           <th colspan="2"><h1>로그인</h1></th>
         </tr>
@@ -96,7 +122,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
               </svg>
-              <input type="text" id="id" placeholder="아이디" name="id"></td>
+              <input type="text" required id="id" placeholder="아이디" name="id"></td>
             </div>
         </tr>
         <tr>
@@ -105,7 +131,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                 <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
               </svg>
-              <input type="password" id="password" placeholder="비밀번호" name="password"></td>
+              <input type="password" required id="password" placeholder="비밀번호" name="password"></td>
             </div>
           
         </tr>
@@ -117,6 +143,13 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div class="footer-section">
+	<div class="footer-find-section">
+	  <div><a href="#">비밀번호 찾기</a></div>
+	  <div><a href="#">아이디 찾기</a></div>
+	  <div><a href="${pageContext.request.contextPath}/member?action=joinForm">회원 가입</a></div>
+	</div>
   </div>
 </form>
 </body>

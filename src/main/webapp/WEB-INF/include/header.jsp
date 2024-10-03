@@ -42,27 +42,31 @@ header nav ul li a:hover {
 }
 </style>
 	<header>
+<<<<<<< HEAD
 		<div class="logo"><a href="<%= request.getContextPath()%>/main?action=main">SSAFit</a></div>
+=======
+		<div class="logo">SSAFIT</div>
+>>>>>>> ba65849a348929f54e7018f9ca712476153c6fc4
 		<nav>
 			<ul>
 			<c:choose>
 				<c:when test="${ not empty sessionScope.member }">
 					<li>
-						<a href="#"><strong>${ sessionScope.member.memberName }</strong>님 환영합니다.</a>
+						<a href="${pageContext.request.contextPath}/member?action=myPage"><strong>${ sessionScope.member.memberName }</strong>님 환영합니다.</a>
 					<li>
 					<li>
-						<a href="<%= request.getContextPath() %>/member?action=myPage">마이페이지</a>
+						<a href="${pageContext.request.contextPath}/member?action=myPage">마이페이지</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/member?action=logoutForm">로그아웃</a>
+						<a href="${pageContext.request.contextPath}/member?action=logoutForm">로그아웃</a>
 					</li>
 				</c:when>
 				<c:otherwise>
 					<li>
-						<a href="<%= request.getContextPath() %>/member?action=loginForm">로그인</a>
+						<a href="${pageContext.request.contextPath}/member?action=loginForm">로그인</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/member?action=joinForm">회원가입</a>
+						<a href="${pageContext.request.contextPath}/member?action=joinForm">회원가입</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
