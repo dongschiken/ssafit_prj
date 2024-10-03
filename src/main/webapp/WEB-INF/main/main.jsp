@@ -187,7 +187,7 @@ main {
 						</tr>
 					</table>
 					<a href="workout.jsp" class="start-btn">운동가기</a>
-					<a href="workout.jsp" class="start-btn">찜</a>	
+					<a href="workout.jsp" class="start-btn">찜</a>
 				</div>
 			</div>
 		</section>
