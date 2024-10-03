@@ -16,4 +16,5 @@ public interface MemberRepository {
 	
 	Map<Integer, Review> selectReviewList(String option, Member member) throws SQLException;
 	
+	void deleteReview(int id) throws SQLException;
 }
