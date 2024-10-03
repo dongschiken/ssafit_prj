@@ -52,10 +52,10 @@ public class SaveController extends HttpServlet {
 	 * 사용자가 자신이 찜한 운동 리스트를 보고자 할 때 호출되는 메소드
 	 * @param req
 	 * @param resp
+	 * @throws IOException 
 	 */
-	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) {
+	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		// 찜 리스트 보러 가는 기능
-		
 		
 	}
 	/**
