@@ -3,7 +3,7 @@ package com.cdu.ssafit.board.domain.dto;
 public class Board {
 	int id;	
 	String title;
-	String writer;
+	int writer;
 	String content;
 	String workOut;
 	int viewCnt;
@@ -14,7 +14,7 @@ public class Board {
 	public Board() {
 	}
 	
-	public Board(int id, String title, String writer, String content, String workOut, int viewCnt, String regDate,
+	public Board(int id, String title, int writer, String content, String workOut, int viewCnt, String regDate,
 			String videoUrl) {
 		super();
 		this.id = id;
@@ -27,7 +27,7 @@ public class Board {
 		this.videoUrl = videoUrl;
 	}
 
-	public Board(int id, String title, String writer, String content, String workOut, int viewCnt, String regDate) {
+	public Board(int id, String title, int writer, String content, String workOut, int viewCnt, String regDate) {
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
@@ -53,11 +53,11 @@ public class Board {
 		this.title = title;
 	}
 	
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
 
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 
