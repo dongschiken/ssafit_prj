@@ -52,6 +52,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.selectReviewList(option, member);
 	}
 
-	// 여기서 2개의 레포지토리를 만들어서 한개는 리뷰 정보 가져오고,
-	// 한개는 그 정보의 boardId를 바탕으로 보드 타이틀 가져와서 setBoardTitle
+	@Override
+	public void deleteReview(int id) throws SQLException {
+		memberRepository.deleteReview(id);
+	}
 }

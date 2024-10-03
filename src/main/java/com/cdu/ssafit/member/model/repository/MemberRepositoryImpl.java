@@ -148,4 +148,19 @@ public class MemberRepositoryImpl implements MemberRepository {
 		return map;
 	}
 
+	@Override
+	public void deleteReview(int id) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = "DELETE FROM review WHERE id = ?";
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+				){
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 }

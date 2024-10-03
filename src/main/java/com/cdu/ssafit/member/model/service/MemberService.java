@@ -15,4 +15,6 @@ public interface MemberService {
 	boolean selectMemberById(String id) throws SQLException;
 	
 	Map<Integer, Review> selectReviewList(String option, Member member) throws SQLException;
+	
+	void deleteReview(int id) throws SQLException;
 }
