@@ -130,7 +130,7 @@ public class BoardController extends HttpServlet {
 		Map<Integer, Review> reviews = reviewService.list(id);
 		req.setAttribute("board", board);
 		req.setAttribute("reviews", reviews);
-		
+		System.out.println(reviews);
 		req.getRequestDispatcher("/WEB-INF/board/detail.jsp").forward(req, resp);
 	}
 	
