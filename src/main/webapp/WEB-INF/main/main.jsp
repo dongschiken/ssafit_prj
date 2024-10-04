@@ -192,7 +192,7 @@ main {
 			<a href="<%=request.getContextPath()%>/member?action=routineForm"
 				class="start-btn">운동하러 가기</a> <a
 				href="<%=request.getContextPath()%>/board?action=writeForm"
-				class="start-btn">운동 게시판 이동하기</a>
+				class="start-btn">게시글 작성하기</a>
 		</section>
 
 		<!-- 추천 운동 영상 카드 -->
