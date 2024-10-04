@@ -112,7 +112,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public void updateBoard(Board board) throws SQLException {
-		String sql = "update board set title = ?, content = ?, workout_name = ?, reg_date = ?, where id = ?";
+		String sql = "update board set title = ?, content = ?, workout_name = ?, reg_date = ? where id = ?";
 		
 		String regDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 		
@@ -120,7 +120,6 @@ public class BoardRepositoryImpl implements BoardRepository {
 				Connection con = dbUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				) {
-			ResultSet rs = pstmt.executeQuery();
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getWorkOutName());
