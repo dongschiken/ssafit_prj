@@ -89,7 +89,21 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "boardDelete":
+			try {
+				doBoardDelete(req, resp);
+			} catch (SQLException | IOException e) {
+				e.printStackTrace();
+			}
+			break;
 		}
+	}
+
+	private void doBoardDelete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+		int boardId = Integer.parseInt(req.getParameter("value"));
+		memberService.deleteBoard(boardId);
+		String path = req.getContextPath();
+		resp.sendRedirect(path + "/member?action=myBoard&option=newest");
 	}
 
 	private void doReveiwDelete(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {

@@ -15,7 +15,7 @@ body {
 	color: #333;
 }
 
-header {
+/* header {
 	background-color: rgb(201, 201, 253);
 	padding: 20px;
 	display: flex;
@@ -48,7 +48,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
 	color: #000;
-}
+} */
 
 main {
 	text-align: center;
@@ -148,7 +148,7 @@ main {
 }
 
 body > main > section.video-section > div {
-	max-width: 1700px;
+	max-width: 1500px;
 }
 
 body > main > section.video-section {
@@ -235,7 +235,7 @@ body > main > section.video-section > div > div > table > tbody > tr > td {
 								</tr>
 							</table>
 							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>
-							<button class="start-btn save-btn" value=${ save.id } onclick="doSave(this)">찜</button>
+							<button class="start-btn save-btn" value=${ entry.key } onclick="doSave(this)">찜</button>
 						</div>
 						</c:forEach>
 					</c:when>

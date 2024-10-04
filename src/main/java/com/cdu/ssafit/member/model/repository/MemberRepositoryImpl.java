@@ -209,6 +209,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 					board.setWorkOutName(rs.getString("workout_name"));
 					board.setViewCnt(rs.getInt("view_cnt"));
 					board.setRegDate(rs.getString("reg_date"));
+					board.setVideoUrl(rs.getString("video_url"));
 					map.put(board.getId(), board);
 				} while (rs.next());
 			}
@@ -216,6 +217,21 @@ public class MemberRepositoryImpl implements MemberRepository {
 			throw e;
 		}
 		return map;
+	}
+
+	@Override
+	public void deleteBoard(int id) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = "DELETE FROM board WHERE id = ?";
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+				){
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 }

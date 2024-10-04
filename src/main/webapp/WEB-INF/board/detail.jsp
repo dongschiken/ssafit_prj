@@ -15,7 +15,7 @@
         body {
             background-color: #f9f9f9;
         }
-
+	
         .container {
             margin-top: 20px;
         }
@@ -111,6 +111,11 @@
             background-color: rgb(176, 176, 250);
             border-color: rgb(176, 176, 250);
         }
+        
+        iframe {
+        	width: 850px;
+        	height : 500px;
+        }
     </style>
 </head>
 
@@ -122,11 +127,7 @@
             <div class="col-md-8">
                 <!-- Video Section -->
                 <div class="video-section">
-                    <iframe width="100%" height="450px"
-                        src="https://www.youtube.com/embed/50WCSpZtdmA?si=6NS965XyETmZ0vKu"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    ${board.videoUrl}
                 </div>
 
                 <!-- Video Title and Meta Information -->
@@ -143,20 +144,20 @@
                 <!-- Comments Section -->
                 <div class="comments-section">
                     <h5>댓글</h5>
-
+					
                     <!-- Comment Form -->
                     <div class="comment-box">
-                        <textarea id="commentContent" placeholder="댓글을 작성해 주세요"></textarea>
-                        <button class="btn btn-primary" id="submitComment">댓글 등록</button>
+                    	<form name="form" action="${ pageContext.request.contextPath }/board" method="POST">
+                    	  <input type="hidden" name="action" value="reviewWrite">
+                    	  <input type="hidden" name="id" value="${board.id}">
+                    	  <label for="commentContent"></label>
+                    	  <textarea name="reviewText" id="commentContent" placeholder="댓글을 작성해 주세요"></textarea>
+                          <button type="submit" class="btn btn-primary" id="submitComment">댓글 등록</button>
+                    	</form>
                     </div>
-
+				
                     <!-- Comment List -->
                     <div class="comment-list">
-                        <div class="comment-item">
-                            <div class="comment-author">b</div>
-                            <div class="comment-date">2024-08-31</div>
-                            <div class="comment-content">정말 좋은 영상입니다. 저도 효과를 봤어요!</div>
-                        </div>
                         <div class="comment-item">
                             <div class="comment-author">c</div>
                             <div class="comment-date">2024-09-01</div>
