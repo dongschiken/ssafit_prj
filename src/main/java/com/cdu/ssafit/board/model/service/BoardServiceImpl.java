@@ -10,7 +10,7 @@ import com.cdu.ssafit.member.domain.dto.Member;
 
 public class BoardServiceImpl implements BoardService {
 	
-	public BoardRepository boardRepository;
+	private BoardRepository boardRepository;
 	
 	private static BoardService boardService = new BoardServiceImpl();
 	public BoardServiceImpl() {

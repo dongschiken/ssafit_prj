@@ -1,21 +1,20 @@
 package com.cdu.ssafit.board.domain.dto;
 
 public class Board {
-	int id;	
-	String title;
-	String writer;
-	String content;
-	String workOutName;
-	int viewCnt;
-	String regDate;
-	String videoUrl;
+	private int id;	
+	private String title;
+	private String writer;
+	private String content;
+	private String workOutName;
+	private int viewCnt;
+	private String regDate;
+	private String videoUrl;
 
 	public Board() {
 	}
 	
 	public Board(int id, String title, String writer, String content, String workOutName, int viewCnt, String regDate,
 			String videoUrl) {
-		super();
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
