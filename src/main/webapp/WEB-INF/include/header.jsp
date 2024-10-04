@@ -15,9 +15,12 @@ header {
 }
 
 header .logo {
-	text-decoration: none;
     font-size: 24px;
     font-weight: bold;
+}
+
+header .logo a {
+	text-decoration: none;
 }
 
 header nav ul {
