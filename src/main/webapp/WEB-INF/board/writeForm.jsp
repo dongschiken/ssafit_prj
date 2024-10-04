@@ -90,7 +90,15 @@
             <!-- 운동 정보 입력 -->
             <div class="form-group">
                 <label for="workout">운동 정보</label>
-                <input type="text" id="workout" name="workout">
+                <select name="workOutId" id="workout" required>
+                    <option vlaue="">운동을 선택하세요</option>
+                    <option value="런닝">런닝</option>
+                    <option value="수영">수영</option>
+                    <option value="사이클링">사이클링</option>
+                    <option value="웨이트 트레이닝">웨이트 트레이닝</option>
+                    <option value="요가">요가</option>
+                    <option value="기타">기타</option>
+                </select>
             </div>
 
             <!-- 제출 버튼 -->
