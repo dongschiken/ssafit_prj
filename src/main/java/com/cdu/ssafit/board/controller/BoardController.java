@@ -116,7 +116,7 @@ public class BoardController extends HttpServlet {
 			String content = req.getParameter("content");
 			String workOutName = req.getParameter("workOutName");
 			
-			
+			System.out.println(workOutName);
 			board.setTitle(title);
 			board.setContent(content);
 			board.setWorkOutName(workOutName);

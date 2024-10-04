@@ -38,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void update(Board board) throws SQLException {
+	public void update(Board board, Member member) throws SQLException {
 		boardRepository.updateBoard(board);
 	}
 
