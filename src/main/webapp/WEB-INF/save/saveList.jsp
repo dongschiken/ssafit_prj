@@ -239,7 +239,7 @@ header {
 		<main>
 			<section class="video-section">
 				<div class="card-container">
-					<c:choose>
+					<%-- <c:choose>
 						<c:when test="${ not empty saveList }">
 							<c:forEach items="${ saveList }" var="save">
 								<div class="card">
@@ -265,8 +265,50 @@ header {
 						<c:otherwise>
 							<div class="no-saves">찜한 운동이 없습니다.</div>
 						</c:otherwise>
-					</c:choose>
-
+					</c:choose> --%>
+					<c:choose>
+						<c:when test="${ not empty saveList }">
+						<c:forEach items="${ saveList }" var="save" >
+						<div class="card">
+							${save.board.videoUrl}
+							<h3>${ save.board.title }</h3>
+							<table>
+								<tr>
+									<td><strong>운동 종류 :</strong></td>
+									<td>${ save.board.workOutName }</td>
+								</tr>
+								<tr>
+									<td><strong>조회수 :</strong></td>
+									<td>${ save.board.viewCnt }</td>
+								</tr>
+							</table>
+							<button onclick="doDetail(this)" value="${ save.board.id }" class="start-btn workout-btn">운동가기</button>	
+							<c:choose>
+							    <c:when test="${not empty saveList}">
+							        <c:set var="buttonRendered" value="false" />
+							        <c:forEach items="${saveList}" var="save" varStatus="status">
+							            <c:if test="${not buttonRendered}">
+							                <c:choose>
+							                    <c:when test="${save.boardId == save.board.id}">
+							                        <button class="start-btn save-btn" value="${save.board.id}" onclick="doSave(this)">찜 취소</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                    <c:when test="${status.last}">
+							                        <button class="start-btn save-btn" value="${save.board.id}" onclick="doSave(this)">찜</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                </c:choose>
+							            </c:if>
+							        </c:forEach>
+							    </c:when>
+							    <c:otherwise>
+							        <button class="start-btn save-btn" value="${save.board.id}" onclick="doSave(this)">찜</button>
+							    </c:otherwise>
+							</c:choose>
+						</div>
+						</c:forEach>
+					</c:when>
+				</c:choose>
 				</div>
 			</section>
 		</main>
