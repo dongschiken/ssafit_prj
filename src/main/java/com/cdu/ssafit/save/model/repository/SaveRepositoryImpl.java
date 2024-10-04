@@ -24,7 +24,7 @@ public class SaveRepositoryImpl implements SaveRepository {
 	
 	@Override
     public void insertSave(Save save) throws SQLException {
-        String sql = "INSERT INTO save (member_id, board_id) VALUES (?, ?)";
+        String sql = "INSERT INTO save (member_seq, board_id) VALUES (?, ?)";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, save.getMemberSeq());
@@ -37,7 +37,7 @@ public class SaveRepositoryImpl implements SaveRepository {
 
     @Override
     public void deleteSave(int memberSeq, int boardId) throws SQLException {
-        String sql = "DELETE FROM saves WHERE member_id = ? AND board_id = ?";
+        String sql = "DELETE FROM save WHERE member_seq = ? AND board_id = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, memberSeq);
@@ -51,7 +51,7 @@ public class SaveRepositoryImpl implements SaveRepository {
     @Override
     public List<Save> selectSaves(int memberSeq) throws SQLException {
         List<Save> saves = new ArrayList<>();
-        String sql = "SELECT * FROM saves WHERE member_id = ?";
+        String sql = "SELECT * FROM save WHERE member_seq = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, memberSeq);
@@ -68,7 +68,7 @@ public class SaveRepositoryImpl implements SaveRepository {
 
     @Override
     public boolean isSaved(int memberSeq, int boardId) throws SQLException {
-        String sql = "SELECT COUNT(*) FROM saves WHERE member_id = ? AND board_id = ?";
+        String sql = "SELECT COUNT(*) FROM save WHERE member_seq = ? AND board_id = ?";
         try (Connection conn = util.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, memberSeq);

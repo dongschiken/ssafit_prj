@@ -78,7 +78,7 @@ public class BoardController extends HttpServlet {
 		int id = Integer.parseInt(req.getParameter("id"));
 		Board board = boardService.detail(id);
 		req.setAttribute("board", board);
-		req.getRequestDispatcher("/board/detail.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/board/detail.jsp").forward(req, resp);
 	}
 	
 	private void doList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {

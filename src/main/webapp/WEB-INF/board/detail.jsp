@@ -115,6 +115,7 @@
 </head>
 
 <body>
+	<%@ include file="../include/header.jsp" %>
     <div class="container">
         <div class="row">
             <!-- Main Video Section -->

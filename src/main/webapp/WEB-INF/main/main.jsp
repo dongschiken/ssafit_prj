@@ -152,6 +152,12 @@ main {
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+
+	function doDetail(element) {
+		var value = element.value; // 보드 아이디.
+		location.href = `<%= request.getContextPath() %>/board?action=detail&id=\${value}`;
+	}
+
     // 찜 상태 변경 함수
     	function doSave(element) {
             var boardId = element.value;  // 운동 id 추출
@@ -167,10 +173,10 @@ main {
 			success : function(response) {
 				if (response.saved) { // 응답에서 저장 여부 확인
 					alert("찜 목록에 추가됨");
-					$(button).text('찜 취소'); // 버튼 텍스트 변경
+					element.innerText = '찜 취소'; // 버튼 텍스트 변경
 				} else {
 					alert('찜 목록에서 삭제됨');
-					$(button).text('찜'); // 버튼 텍스트 변경
+					element.innerText ='찜'; // 버튼 텍스트 변경
 				}
 			},
 			error : function(xhr, status, error) {
@@ -215,8 +221,8 @@ main {
 									<td>전신</td>
 								</tr>
 							</table>
-							<button class="start-btn workout-btn">운동가기</button>
-							<button class="start-btn save-btn" value=3 onclick="doSave(this)">찜</button>
+							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>
+							<button class="start-btn save-btn" value=${ save.id } onclick="doSave(this)">찜</button>
 						</div>
 						</c:forEach>
 					</c:when>
