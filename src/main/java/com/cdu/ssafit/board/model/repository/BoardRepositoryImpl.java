@@ -61,6 +61,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 				String workOutName = rs.getString("workout_name");
 				int viewCnt = rs.getInt("view_cnt");
 				String writer = memberRepository.selectMemberBySeq(seq);
+				String videoUrl = rs.getString("video_url");
+				String regDate = rs.getString("reg_date");
 				Board board = new Board();
 				board.setId(id);
 				board.setTitle(title);
@@ -68,6 +70,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 				board.setContent(content);
 				board.setWorkOutName(workOutName);
 				board.setViewCnt(viewCnt);
+				board.setVideoUrl(videoUrl);
+				board.setRegDate(regDate);
 				return board;
 			}
 			return null;
@@ -108,7 +112,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public void updateBoard(Board board) throws SQLException {
-		String sql = "update board set title = ?, content = ?, workout_name = ?, reg_date = ?, where id = ?";
+		String sql = "update board set title = ?, content = ?, workout_name = ?, reg_date = ? where id = ?";
 		
 		String regDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 		
@@ -116,7 +120,6 @@ public class BoardRepositoryImpl implements BoardRepository {
 				Connection con = dbUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				) {
-			ResultSet rs = pstmt.executeQuery();
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setString(3, board.getWorkOutName());

@@ -125,10 +125,10 @@
                             <c:forEach items="${ reviewList }" var="review">
                                 <li class="comment-item">
                                     <div class="comment-header">
-                                        <h4>${review.boardTitle}</h4>
+                                        <h4>글 제목 : ${review.boardTitle}</h4>
                                         <span>${review.regDate}</span>
                                     </div>
-                                    <p>${review.content}</p>
+                                    <p>내 댓글 : ${review.content}</p>
                                     <div class="comment-actions">
                                         <button value=${review.id} onclick="deleteReview(this);" type="button" class="btn btn-light" style="width: 100px; height: 35px;" >삭제</button>
                                     </div>

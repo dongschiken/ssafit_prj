@@ -15,7 +15,7 @@ body {
 	color: #333;
 }
 
-header {
+/* header {
 	background-color: rgb(201, 201, 253);
 	padding: 20px;
 	display: flex;
@@ -48,7 +48,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
 	color: #000;
-}
+} */
 
 main {
 	text-align: center;
@@ -146,6 +146,19 @@ main {
 	outline: none;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+body > main > section.video-section > div {
+	max-width: 1500px;
+}
+
+body > main > section.video-section {
+	justify-content: center;
+	display: flex;
+}
+body > main > section.video-section > div > div > table > tbody > tr > td {
+	text-align: left;
+
+}
 </style>
 <!-- <link rel="stylesheet" href="/WEB-INF/main/styles.css"> -->
 <!-- 제이쿼리 라이브러리 포함 -->
@@ -213,16 +226,37 @@ main {
 							<h3>${ entry.value.title }</h3>
 							<table>
 								<tr>
-									<td><strong>${ entry.value.workOutName }:</strong></td>
+									<td><strong>운동 종류 :</strong></td>
 									<td>${ entry.value.workOutName }</td>
 								</tr>
 								<tr>
-									<td><strong>${ entry.value.workOutName }:</strong></td>
-									<td>전신</td>
+									<td><strong>조회수 :</strong></td>
+									<td>${ entry.value.viewCnt }</td>
 								</tr>
 							</table>
-							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>
-							<button class="start-btn save-btn" value=${ save.id } onclick="doSave(this)">찜</button>
+							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>	
+							<c:choose>
+							    <c:when test="${not empty saveList}">
+							        <c:set var="buttonRendered" value="false" />
+							        <c:forEach items="${saveList}" var="save" varStatus="status">
+							            <c:if test="${not buttonRendered}">
+							                <c:choose>
+							                    <c:when test="${save.boardId == entry.key}">
+							                        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜 취소</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                    <c:when test="${status.last}">
+							                        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                </c:choose>
+							            </c:if>
+							        </c:forEach>
+							    </c:when>
+							    <c:otherwise>
+							        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜</button>
+							    </c:otherwise>
+							</c:choose>
 						</div>
 						</c:forEach>
 					</c:when>

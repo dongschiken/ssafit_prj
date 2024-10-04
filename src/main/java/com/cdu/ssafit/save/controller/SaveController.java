@@ -3,16 +3,15 @@ package com.cdu.ssafit.save.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
-import javax.swing.plaf.synth.SynthScrollBarUI;
-
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.save.domain.dto.Save;
 import com.cdu.ssafit.save.model.service.SaveService;
 import com.cdu.ssafit.save.model.service.SaveServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -28,12 +27,11 @@ public class SaveController extends HttpServlet {
 	private SaveService saveService = SaveServiceImpl.getInstance();
 	
 	/**
-	 * 사용자가 찜과 관련한 이슈를 발생시켰을 때 호출된다.
+	 * 사용자가 찜과 관련한 이슈를 발생시켰을 때 호출되는 service 메소드입니다.
 	 */
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
-		System.out.println(action);
 		switch (action) {
 		case "save":
 			try {
@@ -43,19 +41,32 @@ public class SaveController extends HttpServlet {
 			}
 			break;
 		case "saveList":
-			doSaveList(req, resp);
+			try {
+				doSaveList(req, resp);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		}
 	}
 	
 	/**
-	 * 사용자가 자신이 찜한 운동 리스트를 보고자 할 때 호출되는 메소드
+	 * 사용자가 자신이 찜한 운동 리스트를 보고자 할 때 호출되는 메소드입니다.
 	 * @param req
 	 * @param resp
 	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
 		// 찜 리스트 보러 가는 기능
+		HttpSession session = req.getSession();
+		Member member = (Member)session.getAttribute("member");
+		int memberSeq = member.getSeq(); // 세션에 저장된 회원정보로 출발
+		System.out.println("memberSeq : "+memberSeq);
+		List<Save> saveList = saveService.selectSaves(memberSeq);
+		req.setAttribute("saveList", saveList);
+		
+		System.out.println(saveList);
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/save/saveList.jsp");
 		try {
 			rd.forward(req, resp);
@@ -64,9 +75,12 @@ public class SaveController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
+	
 	/**
-	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드
+	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드입니다.
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws ServletException
@@ -78,8 +92,7 @@ public class SaveController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		// 로그인 상태 확인
 		HttpSession session = req.getSession();
-//		Member member = (Member)session.getAttribute("member");
-		Member member = new Member("1", "1234", "ddfd", "dfdfd@", null, "1234", "12312", "123123", "12312", "1212");
+		Member member = (Member)session.getAttribute("member");
 		if (member == null) {
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/member/loginForm.jsp");
 			rd.forward(req, resp);			

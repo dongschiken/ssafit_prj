@@ -5,6 +5,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>운동영상 리뷰 상세화면</title>
@@ -25,6 +26,24 @@ body {
 .container {
 	margin-top: 20px;
 }
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운동영상 리뷰 상세화면</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+	
+        .container {
+            margin-top: 20px;
+        }
+>>>>>>> 7ca176d780ed05771646d90711609cf9442c6d62
 
 .video-section {
 	margin-bottom: 20px;
@@ -109,31 +128,28 @@ body {
 	color: #606060;
 }
 
-.review-content {
-	margin-top: 5px;
-}
-
-#submitreview {
-	background-color: rgb(176, 176, 250);
-	border-color: rgb(176, 176, 250);
-}
-</style>
+        #submitComment {
+            background-color: rgb(176, 176, 250);
+            border-color: rgb(176, 176, 250);
+        }
+        
+        iframe {
+        	width: 850px;
+        	height : 500px;
+        }
+    </style>
 </head>
 
 <body>
-	<%@ include file="../include/header.jsp"%>
-	<div class="container">
-		<div class="row">
-			<!-- Main Video Section -->
-			<div class="col-md-8">
-				<!-- Video Section -->
-				<div class="video-section">
-					<iframe width="100%" height="450px"
-						src="https://www.youtube.com/embed/50WCSpZtdmA?si=6NS965XyETmZ0vKu"
-						title="YouTube video player" frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-				</div>
+	<%@ include file="../include/header.jsp" %>
+    <div class="container">
+        <div class="row">
+            <!-- Main Video Section -->
+            <div class="col-md-8">
+                <!-- Video Section -->
+                <div class="video-section">
+                    ${board.videoUrl}
+                </div>
 
 				<!-- Video Title and Meta Information -->
 				<div class="video-title">${board.title}</div>

@@ -69,4 +69,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return memberRepository.selectBoardList(option, member);
 	}
+
+	@Override
+	public void deleteBoard(int id) throws SQLException {
+		memberRepository.deleteBoard(id);
+	}
 }
