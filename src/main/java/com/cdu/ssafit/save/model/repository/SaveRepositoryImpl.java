@@ -92,9 +92,8 @@ public class SaveRepositoryImpl implements SaveRepository {
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, boardId);
 			ResultSet rs = pstmt.executeQuery();
-			
 			// member_seq, title, content, view_cnt, video_url, workout_name
-			while (!rs.next()) {
+			while (rs.next()) {
 				board = new Board();
 				String title = rs.getString("title");//
 				String content = rs.getString("content");//

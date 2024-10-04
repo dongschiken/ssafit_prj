@@ -19,6 +19,7 @@
 <script src="./assets/join.js"></script>
 <title>Insert title here</title>
 <style>
+/*
 body {
 	line-height: 1.6;
 	margin: 0;
@@ -74,11 +75,92 @@ main {
 	padding: 2rem;
 	background: #f9f9f9;
 }
+  */
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	color: #333;
+}
 
-svg {
-	width: 22px;
-	height: 22px;
-	color: rgb(156, 156, 237);
+.container {
+	padding-top: 40px;
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+}
+
+header {
+	background: #f4f4f4;
+	padding: 1rem;
+}
+
+.video-section {
+	margin-top: 50px;
+}
+
+.card-container {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	padding: 20px;
+}
+
+.card {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 250px; /* 카드의 너비 */
+	padding: 20px;
+	text-align: center;
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card img {
+	width: 100%;
+	border-radius: 5px;
+}
+
+.card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+.card table {
+	width: 100%;
+	margin: 10px 0;
+}
+
+.card td {
+	text-align: left;
+}
+
+.start-btn {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: rgb(201, 201, 253);
+	color: #333;
+	border: none;
+	border-radius: 5px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.start-btn:hover {
+	background-color: #9999ff;
+	color: white;
+}
+
+.start-btn:focus {
+	outline: none;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 </style>
 <script
@@ -91,12 +173,12 @@ svg {
             
             // AJAX 요청 보내기
             $.ajax({
-                url: '<%=request.getContextPath()%>/save?action=save', // 찜 상태를 변경하는 엔드포인트
-			type : 'POST',
-			data : jsonData, // 서버로 전송할 데이터 (운동 id)
-			dataType : 'json',
-			contentType : 'application/json',
-			success : function(response) {
+                url : '<%=request.getContextPath()%>/save?action=save',
+				type : 'POST',
+				data : jsonData, // 서버로 전송할 데이터 (운동 id)
+				dataType : 'json',
+				contentType : 'application/json',
+				success : function(response) {
 				if (response.saved) { // 응답에서 저장 여부 확인
 					alert("찜 목록에 추가됨");
 					$(button).text('찜 취소'); // 버튼 텍스트 변경
@@ -125,19 +207,20 @@ svg {
 			    select.addEventListener('change', function() {
 			        const option = this.value;
 			        if (option) {
-			            location.href = `<%=request.getContextPath()%>/save?action=saveList&option=\${option}`;
-			        } 
-			    }); 
-			});
+			            location.href = `<%=request.getContextPath()%>
+		/save?action=saveList&option=\${option}`;
+												}
+											});
+						});
 
-				document.addEventListener('DOMContentLoaded', function () {
-					document.body.addEventListener('click', function(event) {
-					    if (event.target.classList.contains('btn.btn-light')) {
-					       deletesave(event.target);
-					    }
-					});
-				});
-		</script>
+		document.addEventListener('DOMContentLoaded', function() {
+			document.body.addEventListener('click', function(event) {
+				if (event.target.classList.contains('btn.btn-light')) {
+					deletesave(event.target);
+				}
+			});
+		});
+	</script>
 	<%@ include file="../include/header.jsp"%>
 
 	<div class="container">
@@ -155,33 +238,35 @@ svg {
 
 		<main>
 			<section class="video-section">
-				<h2></h2>
 				<div class="card-container">
-					<%-- 여기서는 DB에서 가져온 운동 영상 데이터를 JSP로 출력 --%>
 					<c:choose>
 						<c:when test="${ not empty saveList }">
-							<c:forEach items="${ saveList }" var="entry">
+							<c:forEach items="${ saveList }" var="save">
 								<div class="card">
-									${entry.value.videoUrl}
-									<h3>${ entry.value.title }</h3>
+									${save.board.videoUrl}
+									<h3>${ save.board.title }</h3>
 									<table>
 										<tr>
 											<td><strong>운동 종류 :</strong></td>
-											<td>${ entry.value.workOutName }</td>
+											<td>${ save.board.workOutName }</td>
 										</tr>
 										<tr>
 											<td><strong>조회수 :</strong></td>
-											<td>${ entry.value.viewCnt }</td>
+											<td>${ save.board.viewCnt }</td>
 										</tr>
 									</table>
-									<button onclick="doDetail(this)" value="${ entry.key }"
+									<button onclick="doDetail(this)" value="${ save.board.id }"
 										class="start-btn workout-btn">운동가기</button>
-									<button class="start-btn save-btn" value=${ save.id }
+									<button class="start-btn save-btn" value="${ save.board.id }"
 										onclick="doSave(this)">찜</button>
 								</div>
 							</c:forEach>
 						</c:when>
+						<c:otherwise>
+							<div class="no-saves">찜한 운동이 없습니다.</div>
+						</c:otherwise>
 					</c:choose>
+
 				</div>
 			</section>
 		</main>
