@@ -78,6 +78,7 @@ public class SaveRepositoryImpl implements SaveRepository {
     			Save save = new Save(rs.getInt("id"), rs.getInt("board_id"));
     			saves.add(save);
     		}
+    		System.out.println("saves : "+saves);
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
@@ -95,11 +96,13 @@ public class SaveRepositoryImpl implements SaveRepository {
 			// member_seq, title, content, view_cnt, video_url, workout_name
 			while (rs.next()) {
 				board = new Board();
+				int id = rs.getInt("id");
 				String title = rs.getString("title");//
 				String content = rs.getString("content");//
 				String workOutName = rs.getString("workout_name");
 				int viewCnt = rs.getInt("view_cnt");
 				String videoUrl = rs.getString("video_url");
+				board.setId(id);
 				board.setTitle(title);
 				board.setContent(content);
 				board.setWorkOutName(workOutName);

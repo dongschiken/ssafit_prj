@@ -55,8 +55,14 @@ public class BoardController extends HttpServlet {
 			throw new ServletException();
 		}
 	}
-
-
+	
+	/**
+	 * 게시글 수정을 위한 Form으로 이동하는 메서드 입니다.
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void doUdpateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
 		Board board = null;
@@ -68,11 +74,25 @@ public class BoardController extends HttpServlet {
 		req.setAttribute("board", board);
 		req.getRequestDispatcher("/WEB-INF/board/updateForm.jsp").forward(req, resp);
 	}
-
+	
+	/**
+	 * 게시글 작성을 위한 Form으로 이동하는 메서드 입니다.
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/board/writeForm.jsp").forward(req, resp);
 	}
-
+	
+	/**
+	 * 게시글 작성을 위해 form으로 넘어온 parameter를 받아서 게시글을 db에 insert하는 메서드입니다.
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	private void doWrite(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
 		Member member = (Member) req.getSession().getAttribute("member");
 		
@@ -89,7 +109,15 @@ public class BoardController extends HttpServlet {
 		boardService.write(member, board);
 		resp.sendRedirect(req.getContextPath() + "/main");
 	}
-
+	
+	/**
+	 * 게시글 상세보기 화면을 위해 게시글, 리뷰 정보를 req에 담아서 forward하는 메서드입니다.
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	private void doDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		int id = Integer.parseInt(req.getParameter("id"));
 		Board board = boardService.detail(id);
@@ -97,12 +125,27 @@ public class BoardController extends HttpServlet {
 		req.getRequestDispatcher("/WEB-INF/board/detail.jsp").forward(req, resp);
 	}
 	
+	/**
+	 * 게시글 리스트를 반환해주는 메서드입니다.
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	private void doList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		Map<Integer, Board> list = boardService.list();
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("/main.jsp").forward(req, resp);
 	}
 	
+	/**
+	 * 게시글 수정을 위해 수정 정보를 parameter로 받아 db에 update하는 메서드입니다.
+	 * @param req
+	 * @param resp
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
 		Member member = (Member) req.getSession().getAttribute("member");
 		
@@ -126,6 +169,13 @@ public class BoardController extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * 게시글을 삭제하는 메서드입니다.
+	 * @param req
+	 * @param resp
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	private void doRemove(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
 		int id = Integer.parseInt(req.getParameter("id"));
 		boardService.delete(id);

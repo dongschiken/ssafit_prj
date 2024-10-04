@@ -184,7 +184,7 @@ header {
 					$(button).text('찜 취소'); // 버튼 텍스트 변경
 				} else {
 					alert('찜 목록에서 삭제됨');
-					$(button).text('찜'); // 버튼 텍스트 변경
+					location.href = location.href;
 				}
 			},
 			error : function(xhr, status, error) {
@@ -258,7 +258,7 @@ header {
 									<button onclick="doDetail(this)" value="${ save.board.id }"
 										class="start-btn workout-btn">운동가기</button>
 									<button class="start-btn save-btn" value="${ save.board.id }"
-										onclick="doSave(this)">찜</button>
+										onclick="doSave(this)">찜 취소</button>
 								</div>
 							</c:forEach>
 						</c:when>
