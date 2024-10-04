@@ -27,7 +27,7 @@ public class SaveController extends HttpServlet {
 	private SaveService saveService = SaveServiceImpl.getInstance();
 	
 	/**
-	 * 사용자가 찜과 관련한 이슈를 발생시켰을 때 호출된다.
+	 * 사용자가 찜과 관련한 이슈를 발생시켰을 때 호출되는 service 메소드입니다.
 	 */
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +51,7 @@ public class SaveController extends HttpServlet {
 	}
 	
 	/**
-	 * 사용자가 자신이 찜한 운동 리스트를 보고자 할 때 호출되는 메소드
+	 * 사용자가 자신이 찜한 운동 리스트를 보고자 할 때 호출되는 메소드입니다.
 	 * @param req
 	 * @param resp
 	 * @throws IOException 
@@ -76,8 +76,10 @@ public class SaveController extends HttpServlet {
 		}
 		
 	}
+	
 	/**
-	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드
+	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드입니다.
+	 * 
 	 * @param req
 	 * @param resp
 	 * @throws ServletException
