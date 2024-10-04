@@ -137,7 +137,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public void updateViewCnt(int id) throws SQLException {
-		String sql = "update board set view_cnt = view_cnt + 1 where no = ?";
+		String sql = "update board set view_cnt = view_cnt + 1 where id = ?";
 		try (Connection con = dbUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();

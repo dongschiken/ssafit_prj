@@ -9,8 +9,7 @@ public class Board {
 	int viewCnt;
 	String regDate;
 	String videoUrl;
-	
-	
+
 	public Board() {
 	}
 	
@@ -27,15 +26,6 @@ public class Board {
 		this.videoUrl = videoUrl;
 	}
 
-	public Board(int id, String title, String writer, String content, String workOutName, int viewCnt, String regDate) {
-		this.id = id;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.workOutName = workOutName;
-		this.viewCnt = viewCnt;
-		this.regDate = regDate;
-	}
 
 	public int getId() {
 		return id;

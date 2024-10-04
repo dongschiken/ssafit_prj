@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		} else if (option.equals("oldest")) {
 			option = "ASC";
 		} else {
-
+			
 		}
 		return memberRepository.selectReviewList(option, member);
 	}

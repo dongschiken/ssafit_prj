@@ -56,7 +56,14 @@ public class SaveController extends HttpServlet {
 	 */
 	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		// 찜 리스트 보러 가는 기능
-		
+		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/save/saveList.jsp");
+		try {
+			rd.forward(req, resp);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드
