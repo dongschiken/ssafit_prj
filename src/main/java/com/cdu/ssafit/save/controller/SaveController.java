@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.save.domain.dto.Save;
 import com.cdu.ssafit.save.model.service.SaveService;
@@ -31,7 +32,6 @@ public class SaveController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
-		System.out.println(action);
 		switch (action) {
 		case "save":
 			try {
@@ -65,7 +65,7 @@ public class SaveController extends HttpServlet {
 		List<Save> saveList = saveService.selectSaves(memberSeq);
 		req.setAttribute("saveList", saveList);
 		
-		
+		System.out.println(saveList);
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/save/saveList.jsp");
 		try {
 			rd.forward(req, resp);

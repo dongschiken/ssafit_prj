@@ -3,6 +3,7 @@ package com.cdu.ssafit.save.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.save.domain.dto.Save;
 
 public interface SaveService {
