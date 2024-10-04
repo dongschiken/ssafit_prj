@@ -3,8 +3,7 @@ package com.cdu.ssafit.save.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import javax.swing.plaf.synth.SynthScrollBarUI;
+import java.util.List;
 
 import com.cdu.ssafit.member.domain.dto.Member;
 import com.cdu.ssafit.save.domain.dto.Save;
@@ -12,7 +11,6 @@ import com.cdu.ssafit.save.model.service.SaveService;
 import com.cdu.ssafit.save.model.service.SaveServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -43,7 +41,11 @@ public class SaveController extends HttpServlet {
 			}
 			break;
 		case "saveList":
-			doSaveList(req, resp);
+			try {
+				doSaveList(req, resp);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
 			break;
 		}
 	}
@@ -53,9 +55,17 @@ public class SaveController extends HttpServlet {
 	 * @param req
 	 * @param resp
 	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private void doSaveList(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
 		// 찜 리스트 보러 가는 기능
+		HttpSession session = req.getSession();
+		Member member = (Member)session.getAttribute("member");
+		int memberSeq = member.getSeq(); // 세션에 저장된 회원정보로 출발
+		List<Save> saveList = saveService.selectSaves(memberSeq);
+		req.setAttribute("saveList", saveList);
+		
+		
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/save/saveList.jsp");
 		try {
 			rd.forward(req, resp);
@@ -64,6 +74,7 @@ public class SaveController extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	/**
 	 * 사용자가 찜 버튼을 눌렀을 때 호출되는 메소드
@@ -78,8 +89,7 @@ public class SaveController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		// 로그인 상태 확인
 		HttpSession session = req.getSession();
-//		Member member = (Member)session.getAttribute("member");
-		Member member = new Member("1", "1234", "ddfd", "dfdfd@", null, "1234", "12312", "123123", "12312", "1212");
+		Member member = (Member)session.getAttribute("member");
 		if (member == null) {
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/member/loginForm.jsp");
 			rd.forward(req, resp);			
