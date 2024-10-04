@@ -62,6 +62,7 @@ public class SaveController extends HttpServlet {
 		HttpSession session = req.getSession();
 		Member member = (Member)session.getAttribute("member");
 		int memberSeq = member.getSeq(); // 세션에 저장된 회원정보로 출발
+		System.out.println("memberSeq : "+memberSeq);
 		List<Save> saveList = saveService.selectSaves(memberSeq);
 		req.setAttribute("saveList", saveList);
 		

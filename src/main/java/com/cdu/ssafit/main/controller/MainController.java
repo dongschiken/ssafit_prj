@@ -36,7 +36,7 @@ public class MainController extends HttpServlet {
 		Member member = (Member)req.getSession().getAttribute("member");
 		if(member != null) {
 			try {
-				saveList = saveService.selectSaves(0);
+				saveList = saveService.selectSaves(member.getSeq());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
