@@ -114,6 +114,30 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
+	public String selectMemberBySeq(int seq) throws SQLException {
+		DBUtil dbUtil = DBUtil.getInstance();
+		String sql = "SELECT member_name FROM member WHERE seq = ?";
+		ResultSet rs = null;
+		String memberName = null;
+		try (
+			Connection conn = dbUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			){			
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				memberName = rs.getString("member_name");
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			rs.close();
+		}
+		// id가 없으면 중복 X -> true
+		return memberName;
+	}
+	
+	@Override
 	public Map<Integer, Review> selectReviewList(String option, Member member) throws SQLException {
 		DBUtil dbUtil = DBUtil.getInstance();
 		String sql = " SELECT review.id, review.content, board.title, board.id, review.member_seq, review.reg_date\r\n "
@@ -182,7 +206,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 					board.setId(rs.getInt("id"));
 					board.setTitle(rs.getString("title"));
 					board.setContent(rs.getString("content"));
-					board.setWorkOut(rs.getString("work_out"));
+					board.setWorkOutName(rs.getString("workout_name"));
 					board.setViewCnt(rs.getInt("view_cnt"));
 					board.setRegDate(rs.getString("reg_date"));
 					map.put(board.getId(), board);

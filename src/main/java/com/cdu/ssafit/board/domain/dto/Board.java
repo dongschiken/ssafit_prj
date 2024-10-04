@@ -3,9 +3,9 @@ package com.cdu.ssafit.board.domain.dto;
 public class Board {
 	int id;	
 	String title;
-	int writer;
+	String writer;
 	String content;
-	String workOut;
+	String workOutName;
 	int viewCnt;
 	String regDate;
 	String videoUrl;
@@ -14,25 +14,25 @@ public class Board {
 	public Board() {
 	}
 	
-	public Board(int id, String title, int writer, String content, String workOut, int viewCnt, String regDate,
+	public Board(int id, String title, String writer, String content, String workOutName, int viewCnt, String regDate,
 			String videoUrl) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
-		this.workOut = workOut;
+		this.workOutName = workOutName;
 		this.viewCnt = viewCnt;
 		this.regDate = regDate;
 		this.videoUrl = videoUrl;
 	}
 
-	public Board(int id, String title, int writer, String content, String workOut, int viewCnt, String regDate) {
+	public Board(int id, String title, String writer, String content, String workOutName, int viewCnt, String regDate) {
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
-		this.workOut = workOut;
+		this.workOutName = workOutName;
 		this.viewCnt = viewCnt;
 		this.regDate = regDate;
 	}
@@ -53,11 +53,11 @@ public class Board {
 		this.title = title;
 	}
 	
-	public int getWriter() {
+	public String getWriter() {
 		return writer;
 	}
 
-	public void setWriter(int writer) {
+	public void setWriter(String writer) {
 		this.writer = writer;
 	}
 
@@ -69,12 +69,12 @@ public class Board {
 		this.content = content;
 	}
 
-	public String getWorkOut() {
-		return workOut;
+	public String getWorkOutName() {
+		return workOutName;
 	}
 
-	public void setWorkOut(String workOut) {
-		this.workOut = workOut;
+	public void setWorkOutName(String workOutName) {
+		this.workOutName = workOutName;
 	}
 
 	public int getViewCnt() {
@@ -104,7 +104,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [id=" + id + ", title=" + title + ", writer=" + writer + ", content=" + content + ", workOut="
-				+ workOut + ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", videoUrl=" + videoUrl + "]";
+				+ workOutName + ", viewCnt=" + viewCnt + ", regDate=" + regDate + ", videoUrl=" + videoUrl + "]";
 	}
 
 }
