@@ -191,7 +191,7 @@ main {
 			<h1>SSAFit과 함께 운동할까요?</h1>
 			<a href="<%=request.getContextPath()%>/member?action=routineForm"
 				class="start-btn">운동하러 가기</a> <a
-				href="<%=request.getContextPath()%>/member?action=list"
+				href="<%=request.getContextPath()%>/board?action=writeForm"
 				class="start-btn">운동 게시판 이동하기</a>
 		</section>
 
@@ -210,11 +210,11 @@ main {
 							<h3>${ entry.value.title }</h3>
 							<table>
 								<tr>
-									<td><strong>${ entry.value.workOut }:</strong></td>
-									<td>${ entry.value.workOut }</td>
+									<td><strong>${ entry.value.workOutName }:</strong></td>
+									<td>${ entry.value.workOutName }</td>
 								</tr>
 								<tr>
-									<td><strong>${ entry.value.workOut }:</strong></td>
+									<td><strong>${ entry.value.workOutName }:</strong></td>
 									<td>전신</td>
 								</tr>
 							</table>

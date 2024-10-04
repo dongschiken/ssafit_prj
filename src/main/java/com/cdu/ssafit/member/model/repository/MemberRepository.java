@@ -20,4 +20,6 @@ public interface MemberRepository {
 	void deleteReview(int id) throws SQLException;
 	
 	Map<Integer, Board> selectBoardList(String option, Member member) throws SQLException;
+	
+	String selectMemberBySeq(int seq)throws SQLException;
 }

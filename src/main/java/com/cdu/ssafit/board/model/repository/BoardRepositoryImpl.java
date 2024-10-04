@@ -11,6 +11,8 @@ import java.util.Map;
 
 import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.member.domain.dto.Member;
+import com.cdu.ssafit.member.model.repository.MemberRepository;
+import com.cdu.ssafit.member.model.repository.MemberRepositoryImpl;
 import com.cdu.ssafit.util.DBUtil;
 
 public class BoardRepositoryImpl implements BoardRepository {
@@ -18,6 +20,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 	private DBUtil dbUtil = DBUtil.getInstance();
 
 	private static BoardRepository boardRepository = new BoardRepositoryImpl();
+	MemberRepository memberRepository = MemberRepositoryImpl.getInstance();
 
 	private BoardRepositoryImpl() {
 	};
@@ -28,17 +31,17 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public void insertBoard(Member member, Board board) throws SQLException {
-		String sql = "insert into board(title, writer, content, workout) values(?, ?, ?, ?, ?)";
+		String sql = "insert into board(title, member_seq, content, workout_name, reg_date, video_url) values(?, ?, ?, ?, ?, ?)";
 
 		String regDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 		
 		try (Connection con = dbUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, member.getMemberName());
+			pstmt.setInt(2, member.getSeq());
 			pstmt.setString(3, board.getContent());
-			pstmt.setString(4, board.getWorkOut());
-			pstmt.setInt(5, board.getViewCnt());
-			pstmt.setString(6, regDate);
+			pstmt.setString(4, board.getWorkOutName());
+			pstmt.setString(5, regDate);
+			pstmt.setString(6, board.getVideoUrl());
 			pstmt.executeUpdate();
 		}
 	}
@@ -53,16 +56,17 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 			if (rs.next()) {
 				String title = rs.getString("title");
-				int writer = rs.getInt("writer");
 				String content = rs.getString("content");
-				String workOut = rs.getString("work_out");
+				int seq = rs.getInt("member_seq");
+				String workOutName = rs.getString("workout_name");
 				int viewCnt = rs.getInt("view_cnt");
+				String writer = memberRepository.selectMemberBySeq(seq);
 				Board board = new Board();
 				board.setId(id);
 				board.setTitle(title);
 				board.setWriter(writer);
 				board.setContent(content);
-				board.setWorkOut(workOut);
+				board.setWorkOutName(workOutName);
 				board.setViewCnt(viewCnt);
 				return board;
 			}
@@ -82,16 +86,18 @@ public class BoardRepositoryImpl implements BoardRepository {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
-				int writer = rs.getInt("member_seq");
+				int seq = rs.getInt("member_seq");
+				
+				String writer = memberRepository.selectMemberBySeq(seq);
 				String content = rs.getString("content");
-				String workOut = rs.getString("work_out");
+				String workOutName = rs.getString("workout_name");
 				int viewCnt = rs.getInt("view_cnt");
 				String videoUrl = rs.getString("video_url");
 				Board board = new Board();
 				board.setTitle(title);
 				board.setWriter(writer);
 				board.setContent(content);
-				board.setWorkOut(workOut);
+				board.setWorkOutName(workOutName);
 				board.setViewCnt(viewCnt);
 				board.setVideoUrl(videoUrl);
 				map.put(id, board);
@@ -102,7 +108,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public void updateBoard(Board board) throws SQLException {
-		String sql = "update board set title = ?, content = ?, workOut = ?, regDate = ?, where id = ?";
+		String sql = "update board set title = ?, content = ?, workout_name = ?, reg_date = ?, where id = ?";
 		
 		String regDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 		
@@ -113,7 +119,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 			ResultSet rs = pstmt.executeQuery();
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getWorkOut());
+			pstmt.setString(3, board.getWorkOutName());
 			pstmt.setString(4, regDate);
 			pstmt.setInt(5, board.getId());
 			pstmt.executeUpdate();
