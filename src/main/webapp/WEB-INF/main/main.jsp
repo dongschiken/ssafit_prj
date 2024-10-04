@@ -146,6 +146,19 @@ main {
 	outline: none;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+body > main > section.video-section > div {
+	max-width: 1700px;
+}
+
+body > main > section.video-section {
+	justify-content: center;
+	display: flex;
+}
+body > main > section.video-section > div > div > table > tbody > tr > td {
+	text-align: left;
+
+}
 </style>
 <!-- <link rel="stylesheet" href="/WEB-INF/main/styles.css"> -->
 <!-- 제이쿼리 라이브러리 포함 -->
@@ -213,12 +226,12 @@ main {
 							<h3>${ entry.value.title }</h3>
 							<table>
 								<tr>
-									<td><strong>${ entry.value.workOutName }:</strong></td>
+									<td><strong>운동 종류 :</strong></td>
 									<td>${ entry.value.workOutName }</td>
 								</tr>
 								<tr>
-									<td><strong>${ entry.value.workOutName }:</strong></td>
-									<td>전신</td>
+									<td><strong>조회수 :</strong></td>
+									<td>${ entry.value.viewCnt }</td>
 								</tr>
 							</table>
 							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>
