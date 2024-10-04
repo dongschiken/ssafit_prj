@@ -3,6 +3,7 @@ package com.cdu.ssafit.save.model.repository;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.save.domain.dto.Save;
 
 public interface SaveRepository {
@@ -19,6 +20,8 @@ public interface SaveRepository {
     void deleteSave(int memberSeq, int boardId) throws SQLException;
     
     List<Save> selectSaves(int memberSeq) throws SQLException;
+    
+    Board selectBoards(int boardId);
     
 }
 
