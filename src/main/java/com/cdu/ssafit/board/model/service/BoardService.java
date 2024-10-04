@@ -15,7 +15,7 @@ public interface BoardService {
 	
 	Map<Integer, Board> list() throws SQLException;
 	
-	void update(Board board) throws SQLException;
+	void update(Board board, Member member) throws SQLException;
 	
 	void delete(int id) throws SQLException;
 }

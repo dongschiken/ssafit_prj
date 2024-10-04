@@ -76,31 +76,37 @@ main {
 	color: white;
 }
 
-/* 추천 영상 카드 스타일 */
 .video-section {
 	margin-top: 50px;
 }
 
 .card-container {
 	display: flex;
-	justify-content: center;
-	gap: 20px;
-	flex-wrap: wrap;
-	padding: 20px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
 .card {
 	background-color: white;
-	border-radius: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	width: 250px;
-	padding: 20px;
-	text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    flex-basis: 10%;
 }
 
 .card img {
 	width: 100%;
 	border-radius: 5px;
+}
+
+.card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 .card h3 {
@@ -185,7 +191,7 @@ main {
 			<h1>SSAFit과 함께 운동할까요?</h1>
 			<a href="<%=request.getContextPath()%>/member?action=routineForm"
 				class="start-btn">운동하러 가기</a> <a
-				href="<%=request.getContextPath()%>/member?action=list"
+				href="<%=request.getContextPath()%>/board?action=writeForm"
 				class="start-btn">운동 게시판 이동하기</a>
 		</section>
 
@@ -204,11 +210,11 @@ main {
 							<h3>${ entry.value.title }</h3>
 							<table>
 								<tr>
-									<td><strong>${ entry.value.workOut }:</strong></td>
-									<td>${ entry.value.workOut }</td>
+									<td><strong>${ entry.value.workOutName }:</strong></td>
+									<td>${ entry.value.workOutName }</td>
 								</tr>
 								<tr>
-									<td><strong>${ entry.value.workOut }:</strong></td>
+									<td><strong>${ entry.value.workOutName }:</strong></td>
 									<td>전신</td>
 								</tr>
 							</table>

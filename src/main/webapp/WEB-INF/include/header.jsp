@@ -15,6 +15,7 @@ header {
 }
 
 header .logo {
+	text-decoration: none;
     font-size: 24px;
     font-weight: bold;
 }

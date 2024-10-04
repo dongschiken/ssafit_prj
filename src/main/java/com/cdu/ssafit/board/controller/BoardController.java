@@ -54,20 +54,22 @@ public class BoardController extends HttpServlet {
 	}
 
 	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/board/WEB-INF/board/writeForm").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/board/writeForm.jsp").forward(req, resp);
 	}
 
 	private void doWrite(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
-		Member member = (Member) req.getSession().getAttribute("loginMember");
+		Member member = (Member) req.getSession().getAttribute("member");
 		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		String workOut = req.getParameter("workOut");
-		
+		String videoUrl = req.getParameter("videoUrl");
+		System.out.println(workOut);
 		Board board = new Board();
 		board.setTitle(title);
 		board.setContent(content);
-		board.setWorkOut(workOut);
+		board.setWorkOutName(workOut);
+		board.setVideoUrl(videoUrl);
 		boardService.write(member, board);
 		resp.sendRedirect(req.getContextPath() + "/main");
 	}
@@ -86,7 +88,7 @@ public class BoardController extends HttpServlet {
 	}
 	
 	private void doUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
-		Member member = (Member) req.getSession().getAttribute("loginMember");
+		Member member = (Member) req.getSession().getAttribute("member");
 		
 		int id = Integer.parseInt(req.getParameter("id"));
 		Board board = boardService.detail(id);
@@ -96,12 +98,14 @@ public class BoardController extends HttpServlet {
 		} else {
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			String workOut = req.getParameter("workOut");
+			String workOutName = req.getParameter("workOutName");
+			
 			
 			board.setTitle(title);
 			board.setContent(content);
-			board.setWorkOut(workOut);
-			boardService.update(board);
+			board.setWorkOutName(workOutName);
+			board.setWriter(member.getMemberName());
+			boardService.update(board, member);
 			resp.sendRedirect(req.getContextPath() + "/main");
 		}
 	}

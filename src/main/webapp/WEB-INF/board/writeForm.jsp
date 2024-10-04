@@ -68,7 +68,7 @@
     <div class="form-container">
         <h2>게시글 작성</h2>
         <form action="${pageContext.request.contextPath}/board" method="post">
-        	<intput type="hidden" name="action" value="write" />
+        	<input name="action" value="write" type="hidden">
             <!-- 제목 입력 -->
             <div class="form-group">
                 <label for="title">제목</label>
@@ -78,20 +78,14 @@
             <!-- 작성자는 로그인된 회원으로 자동 설정 -->
             <div class="form-group">
                 <label for="writer">작성자</label>
-                <input type="text" id="writer" name="writer" value="${ sessionScope.member.memberName }" readonly>
-            </div>
-            
-            <!-- 내용 입력 -->
-            <div class="form-group">
-                <label for="content">내용</label>
-                <textarea id="content" name="content" required></textarea>
+                <input type="text" id="writer" name="writer" value="${member.memberName}" readonly>
             </div>
 
             <!-- 운동 정보 입력 -->
             <div class="form-group">
-                <label for="workout">운동 정보</label>
-                <select name="workOutId" id="workout" required>
-                    <option vlaue="">운동을 선택하세요</option>
+                <label for="workOut">운동 정보</label>
+                <select name="workOut" id="workOut" required>
+                    <option value="">운동을 선택하세요</option>
                     <option value="런닝">런닝</option>
                     <option value="수영">수영</option>
                     <option value="사이클링">사이클링</option>
@@ -99,6 +93,18 @@
                     <option value="요가">요가</option>
                     <option value="기타">기타</option>
                 </select>
+            </div>
+            
+            <!-- URL 입력 -->
+             <div class="form-group">
+                <label for="videoUrl">URL</label>
+                <input type="text" id="videoUrl" name="videoUrl" required>
+            </div>
+
+             <!-- 내용 입력 -->
+             <div class="form-group">
+                <label for="content">내용</label>
+                <textarea id="content" name="content" required></textarea>
             </div>
 
             <!-- 제출 버튼 -->
