@@ -2,12 +2,16 @@ package com.cdu.ssafit.board.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.board.model.service.BoardService;
 import com.cdu.ssafit.board.model.service.BoardServiceImpl;
 import com.cdu.ssafit.member.domain.dto.Member;
+import com.cdu.ssafit.review.domain.dto.Review;
+import com.cdu.ssafit.review.service.ReviewService;
+import com.cdu.ssafit.review.service.ReviewServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,8 +23,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BoardController extends HttpServlet {
 	
 	private BoardService boardService;
+	private ReviewService reviewService;
 	public BoardController() {
 		boardService = BoardServiceImpl.getInstance(); 
+		reviewService = ReviewServiceImpl.getInstance();
 	}
 	
 	@Override
@@ -64,7 +70,7 @@ public class BoardController extends HttpServlet {
 		String content = req.getParameter("content");
 		String workOut = req.getParameter("workOut");
 		String videoUrl = req.getParameter("videoUrl");
-		System.out.println(workOut);
+		
 		Board board = new Board();
 		board.setTitle(title);
 		board.setContent(content);
@@ -77,7 +83,10 @@ public class BoardController extends HttpServlet {
 	private void doDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
 		int id = Integer.parseInt(req.getParameter("id"));
 		Board board = boardService.detail(id);
+		Map<Integer, Review> reviews = reviewService.list(id);
 		req.setAttribute("board", board);
+		req.setAttribute("reviews", reviews);
+		
 		req.getRequestDispatcher("/WEB-INF/board/detail.jsp").forward(req, resp);
 	}
 	

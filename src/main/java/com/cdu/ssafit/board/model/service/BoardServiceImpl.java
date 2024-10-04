@@ -10,7 +10,7 @@ import com.cdu.ssafit.member.domain.dto.Member;
 
 public class BoardServiceImpl implements BoardService {
 	
-	public BoardRepository boardRepository;
+	private BoardRepository boardRepository;
 	
 	private static BoardService boardService = new BoardServiceImpl();
 	public BoardServiceImpl() {
@@ -38,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void update(Board board) throws SQLException {
+	public void update(Board board, Member member) throws SQLException {
 		boardRepository.updateBoard(board);
 	}
 
