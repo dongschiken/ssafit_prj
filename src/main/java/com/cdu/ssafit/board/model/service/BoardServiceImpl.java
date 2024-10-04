@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 	public Map<Integer, Board> list() throws SQLException {
 		return boardRepository.selectAll();
 	}
-
+	
 	@Override
 	public void update(Board board) throws SQLException {
 		boardRepository.updateBoard(board);
@@ -45,6 +45,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delete(int id) throws SQLException {
 		boardRepository.deleteBoard(id);
+	}
+	
+	@Override
+	public Board updateGetBoard(int id) throws SQLException {
+		Board board = boardRepository.selectOne(id);
+		return board;
 	}
 
 }

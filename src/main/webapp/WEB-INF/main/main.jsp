@@ -234,8 +234,29 @@ body > main > section.video-section > div > div > table > tbody > tr > td {
 									<td>${ entry.value.viewCnt }</td>
 								</tr>
 							</table>
-							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>
-							<button class="start-btn save-btn" value=${ entry.key } onclick="doSave(this)">찜</button>
+							<button onclick="doDetail(this)" value="${ entry.key }" class="start-btn workout-btn">운동가기</button>	
+							<c:choose>
+							    <c:when test="${not empty saveList}">
+							        <c:set var="buttonRendered" value="false" />
+							        <c:forEach items="${saveList}" var="save" varStatus="status">
+							            <c:if test="${not buttonRendered}">
+							                <c:choose>
+							                    <c:when test="${save.boardId == entry.key}">
+							                        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜 취소</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                    <c:when test="${status.last}">
+							                        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜</button>
+							                        <c:set var="buttonRendered" value="true" />
+							                    </c:when>
+							                </c:choose>
+							            </c:if>
+							        </c:forEach>
+							    </c:when>
+							    <c:otherwise>
+							        <button class="start-btn save-btn" value="${entry.key}" onclick="doSave(this)">찜</button>
+							    </c:otherwise>
+							</c:choose>
 						</div>
 						</c:forEach>
 					</c:when>
