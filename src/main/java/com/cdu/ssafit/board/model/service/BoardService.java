@@ -18,4 +18,7 @@ public interface BoardService {
 	void update(Board board, Member member) throws SQLException;
 	
 	void delete(int id) throws SQLException;
+	
+	Board updateGetBoard(int id) throws SQLException;
+	
 }

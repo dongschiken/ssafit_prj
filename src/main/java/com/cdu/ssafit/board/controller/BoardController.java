@@ -46,6 +46,9 @@ public class BoardController extends HttpServlet {
 			case "delete":
 				doRemove(req, resp);
 				break;
+			case "updateForm":
+				doUdpateForm(req, resp);
+				break;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,6 +56,18 @@ public class BoardController extends HttpServlet {
 		}
 	}
 
+
+	private void doUdpateForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		Board board = null;
+		try {
+			board = boardService.updateGetBoard(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		req.setAttribute("board", board);
+		req.getRequestDispatcher("/WEB-INF/board/updateForm.jsp").forward(req, resp);
+	}
 
 	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/board/writeForm.jsp").forward(req, resp);

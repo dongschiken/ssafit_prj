@@ -109,7 +109,11 @@
 					    }
 					});
 				});
-			
+				
+			function updateBoard(element) {
+				location.href = `<%=request.getContextPath()%>/board?action=updateForm&id=\${element.value}`;
+	        }
+				
 		</script>
         <%@ include file="../include/header.jsp" %>
         
@@ -136,6 +140,7 @@
                                     </div>
                                     <p>작성 내용 : ${entry.value.content}</p>
                                     <div class="board-actions">
+                                    	<button type="button" value=${entry.key} onclick="updateBoard(this);" class="btn btn-light" style="width: 100px; height: 35px;" >수정</button>
                                         <button type="button" value=${entry.key} onclick="deleteBoard(this);" class="btn btn-light" style="width: 100px; height: 35px;" >삭제</button>
                                     </div>
                                 </li>
