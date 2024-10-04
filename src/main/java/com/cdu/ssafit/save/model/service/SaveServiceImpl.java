@@ -1,9 +1,10 @@
 package com.cdu.ssafit.save.model.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.cdu.ssafit.member.model.repository.MemberRepositoryImpl;
+import com.cdu.ssafit.board.domain.dto.Board;
 import com.cdu.ssafit.save.domain.dto.Save;
 import com.cdu.ssafit.save.model.repository.SaveRepository;
 import com.cdu.ssafit.save.model.repository.SaveRepositoryImpl;
@@ -37,7 +38,14 @@ public class SaveServiceImpl implements SaveService {
 
     @Override
     public List<Save> selectSaves(int seq) throws SQLException {
-        return saveRepository.selectSaves(seq);
+    	List<Save> saves = saveRepository.selectSaves(seq);
+
+    	List<Board> boards = new ArrayList<>();
+    	for (int i = 0; i < saves.size(); i++) {
+    		Board board = saveRepository.selectBoards(saves.get(i).getBoardId());
+    		saves.get(i).setBoard(board);
+    	}
+        return saves;
     }
 
 }
