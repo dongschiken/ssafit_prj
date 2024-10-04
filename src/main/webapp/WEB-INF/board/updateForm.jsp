@@ -84,8 +84,8 @@
 
             <!-- 운동 정보 입력 -->
             <div class="form-group">
-                <label for="workOut">운동 정보</label>
-                <select name="workOut" id="workOut" required>
+                <label for="workOutName">운동 정보</label>
+                <select name="workOutName" id="workOutName" required>
                     <option value="">운동을 선택하세요</option>
                     <option value="런닝">런닝</option>
                     <option value="수영">수영</option>
