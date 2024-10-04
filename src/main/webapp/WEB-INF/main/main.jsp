@@ -193,7 +193,8 @@ body > main > section.video-section > div > div > table > tbody > tr > td {
 				}
 			},
 			error : function(xhr, status, error) {
-				alert('찜 상태 변경 중 오류가 발생했습니다.');
+				alert('로그인이 필요합니다.');
+				location.href = `<%=request.getContextPath()%>/member?action=loginForm`;
 			}
 		});
 	}
