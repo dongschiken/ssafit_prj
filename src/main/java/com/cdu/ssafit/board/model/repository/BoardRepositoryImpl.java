@@ -61,6 +61,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 				String workOutName = rs.getString("workout_name");
 				int viewCnt = rs.getInt("view_cnt");
 				String writer = memberRepository.selectMemberBySeq(seq);
+				String videoUrl = rs.getString("video_url");
+				String regDate = rs.getString("reg_date");
 				Board board = new Board();
 				board.setId(id);
 				board.setTitle(title);
@@ -68,6 +70,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 				board.setContent(content);
 				board.setWorkOutName(workOutName);
 				board.setViewCnt(viewCnt);
+				board.setVideoUrl(videoUrl);
+				board.setRegDate(regDate);
 				return board;
 			}
 			return null;

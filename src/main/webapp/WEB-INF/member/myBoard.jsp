@@ -77,6 +77,11 @@
 				color: rgb(156, 156, 237);
 			}
             
+            #boardList > li > div.board-header > h4 > a {
+            	text-decoration: none;
+            	color: black;
+            }
+            
         </style>
     </head>
     <body>
@@ -92,7 +97,18 @@
 			    }); 
 			});
 			
+			function deleteBoard(element) {
+				location.href = `<%=request.getContextPath()%>/member?action=boardDelete&value=\${element.value}`
+            }
 			
+            <!--도큐멘트가 로드되고 실행시켜야한다.-->
+				document.addEventListener('DOMContentLoaded', function () {
+					document.body.addEventListener('click', function(event) {
+					    if (event.target.classList.contains('btn.btn-light')) {
+					       deleteBoard(event.target);
+					    }
+					});
+				});
 			
 		</script>
         <%@ include file="../include/header.jsp" %>
@@ -113,13 +129,14 @@
 						<ul id="boardList" class="board-list">
                             <c:forEach items="${ boardList }" var="entry">
                                 <li class="board-item">
+                                	${ entry.value.videoUrl }
                                     <div class="board-header">
-                                        <h4>${entry.value.title}</h4>
-                                        <span>${entry.value.regDate}</span>
+                                        <h4><a href="${pageContext.request.contextPath}/board?action=detail&id=${entry.key}">글 제목 : ${entry.value.title}</a></h4>
+                                        <span>작성일 : ${entry.value.regDate}</span>
                                     </div>
-                                    <p>${entry.value.content}</p>
+                                    <p>작성 내용 : ${entry.value.content}</p>
                                     <div class="board-actions">
-                                        <button type="button" class="btn btn-light" style="width: 100px; height: 35px;" >삭제</button>
+                                        <button type="button" value=${entry.key} onclick="deleteBoard(this);" class="btn btn-light" style="width: 100px; height: 35px;" >삭제</button>
                                     </div>
                                 </li>
                             </c:forEach>

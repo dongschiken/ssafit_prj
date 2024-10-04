@@ -53,6 +53,7 @@ public class BoardController extends HttpServlet {
 		}
 	}
 
+
 	private void doWriteForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/board/writeForm.jsp").forward(req, resp);
 	}
